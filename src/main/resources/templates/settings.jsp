@@ -71,41 +71,16 @@
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View OpenBook markets &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View Drift markets &raquo;</a>
         <hr>
-        <h2>Strategies</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Exchange</th>
-                <th scope="col">Market</th>
-                <th scope="col">Strategy</th>
-                <th scope="col">Uptime</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>OpenBook</td>
-                <td>SOL/USDC</td>
-                <td>Spread</td>
-                <td>0.5 hours</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>OpenBook</td>
-                <td>ETH/USDC</td>
-                <td>Spread</td>
-                <td>Offline</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Drift</td>
-                <td>SOL-PERP</td>
-                <td>Spread</td>
-                <td>Offline</td>
-            </tr>
-            </tbody>
-        </table>
+        <h2>Settings</h2>
+        <form>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">RPC Server</span>
+                </div>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                <input type="submit" class="btn btn-primary"/>
+            </div>
+        </form>
     </div>
 </main>
 
