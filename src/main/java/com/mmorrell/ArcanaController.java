@@ -12,4 +12,9 @@ public class ArcanaController {
         return "index";
     }
 
+    @RequestMapping("/settings")
+    public String arcanaSettings(Model model) {
+        return "settings";
+    }
+
 }
