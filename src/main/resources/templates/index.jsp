@@ -61,6 +61,9 @@
                     <a class="nav-link" href="../settings">Settings</a>
                 </li>
             </ul>
+            <div class="d-flex navbar-text">
+                RPC: <span th:text="${rpcEndpoint}" style="padding-left: 4px"></span>
+            </div>
         </div>
     </div>
 </nav>

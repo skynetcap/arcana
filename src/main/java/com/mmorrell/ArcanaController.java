@@ -21,6 +21,7 @@ public class ArcanaController {
 
     @RequestMapping("/")
     public String arcanaIndex(Model model) {
+        model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
         return "index";
     }
 
@@ -29,8 +30,8 @@ public class ArcanaController {
         if (rpc != null && rpc.length() > 10) {
             // set RPC host
             rpcClient = new RpcClient(rpc);
+            log.info("New RPC Host: " + rpc);
         }
-        log.info("New RPC Host: " + rpc);
 
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
 
