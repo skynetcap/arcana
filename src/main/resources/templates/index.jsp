@@ -68,6 +68,7 @@
         <h1>Arcana Status</h1>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View OpenBook markets &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View Drift markets &raquo;</a>
+        <a class="btn btn-lg btn-success" href="../components/navbar/" role="button">Strategies &raquo;</a>
         <hr>
         <h2>Active Bots</h2>
         <table class="table">
