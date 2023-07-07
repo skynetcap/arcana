@@ -74,11 +74,15 @@
         <h2>Settings</h2>
         <form>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">RPC Server</span>
-                </div>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                <input type="submit" class="btn btn-primary"/>
+                <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/settings/save">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="rpc-server-text">RPC Server</span>
+                    </div>
+                    <label>
+                        <input class="form-control" type="text" required aria-describedby="rpc-server-text" name="rpc">
+                    </label>
+                    <button class="btn btn-primary btn-block" type="submit">Save</button>
+                </form>
             </div>
         </form>
     </div>
