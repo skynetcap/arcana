@@ -1,10 +1,11 @@
 package com.mmorrell;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ArcanaMain {
+public class ArcanaApplication {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        SpringApplication.run(ArcanaApplication.class, args);
     }
 }
