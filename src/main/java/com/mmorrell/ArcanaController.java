@@ -25,7 +25,7 @@ public class ArcanaController {
     }
 
     @RequestMapping("/settings")
-    public String arcanaSettings(Model model, @RequestParam String rpc) {
+    public String arcanaSettings(Model model, @RequestParam(required = false) String rpc) {
         if (rpc != null && rpc.length() > 10) {
             // set RPC host
             rpcClient = new RpcClient(rpc);
