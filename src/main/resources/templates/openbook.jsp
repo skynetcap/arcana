@@ -70,18 +70,18 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <h2>OpenBook Markets (<span th:text="${#lists.size(markets)}">0</span> markets)</h2>
+        <h2>🏴‍☠️ OpenBook Markets (<span th:text="${#lists.size(markets)}">0</span> markets)</h2>
         <table>
             <tr>
                 <th>#</th>
-                <th>Market</th>
+                <th>Market ID</th>
                 <th>Base Token</th>
                 <th>Quote Token</th>
                 <th>Strategy</th>
             </tr>
             <tr th:each="market, state : ${markets}">
                 <td th:text="${state.count}"></td>
-                <td th:text="${market.ownAddress}"></td>
+                <td th:text="${#strings.substring(market.ownAddress, 0, 5)}"></td>
                 <td th:text="${market.baseMint}"</td>
                 <td th:text="${market.quoteMint}"</td>
                 <td><a href="#" class="btn btn-primary">View</a>
