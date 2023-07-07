@@ -110,6 +110,7 @@
         </table>
         <table>
             <tr>
+                <th>#</th>
                 <th>Market</th>
             </tr>
             <tr th:each="market, state : ${markets}">
