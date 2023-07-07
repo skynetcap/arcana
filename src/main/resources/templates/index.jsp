@@ -38,7 +38,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Arcana Markets</a>
+        <a class="navbar-brand" href="#">🧙‍♂️ Arcana</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,10 +49,13 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">✨ Strategies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="#">OpenBook</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Drift</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -65,10 +68,9 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <h1>Arcana Status</h1>
+        <a class="btn btn-lg btn-success" href="../components/navbar/" role="button">✨ Strategies &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View OpenBook markets &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View Drift markets &raquo;</a>
-        <a class="btn btn-lg btn-success" href="../components/navbar/" role="button">Strategies &raquo;</a>
         <hr>
         <h2>Active Bots</h2>
         <table class="table">
