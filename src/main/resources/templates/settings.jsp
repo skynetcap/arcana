@@ -61,6 +61,9 @@
                     <a class="nav-link active" aria-current="page" href="../settings">Settings</a>
                 </li>
             </ul>
+            <div class="d-flex navbar-text">
+                RPC: <span th:text="${rpcEndpoint}"></span>
+            </div>
         </div>
     </div>
 </nav>

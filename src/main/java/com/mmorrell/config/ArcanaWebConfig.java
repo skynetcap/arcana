@@ -1,5 +1,7 @@
 package com.mmorrell.config;
 
+import org.p2p.solanaj.rpc.Cluster;
+import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
@@ -19,6 +21,11 @@ import java.util.concurrent.TimeUnit;
 @EnableScheduling
 @Configuration
 public class ArcanaWebConfig implements WebMvcConfigurer {
+
+    @Bean
+    public RpcClient rpcClient() {
+        return new RpcClient(Cluster.BLOCKDAEMON);
+    }
 
     @Bean
     public ViewResolver viewResolver() {
