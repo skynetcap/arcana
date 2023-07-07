@@ -110,12 +110,11 @@
         </table>
         <table>
             <tr>
-                <th>Vendor</th>
-                <th>Product Name</th>
-                <th>Description</th>
+                <th>Market</th>
             </tr>
-            <tr th:each="market : ${markets}">
-                <td th:text="${market}"></td>
+            <tr th:each="market, state : ${markets}">
+                <td th:text="${state.count}"></td>
+                <td th:text="${market.ownAddress}"></td>
             </tr>
         </table>
     </div>

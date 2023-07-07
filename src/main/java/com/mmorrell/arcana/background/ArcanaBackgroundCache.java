@@ -19,6 +19,8 @@ public class ArcanaBackgroundCache {
     private RpcClient rpcClient;
     public ArcanaBackgroundCache(RpcClient rpcClient) {
         this.rpcClient = rpcClient;
+        this.cachedMarkets = new ArrayList<>();
+        backgroundCacheMarkets();
     }
 
     private List<Market> cachedMarkets;
@@ -28,7 +30,6 @@ public class ArcanaBackgroundCache {
         return cachedMarkets;
     }
 
-    @Scheduled(initialDelay = 0L, fixedRate = 60_000L)
     public void backgroundCacheMarkets() {
         final List<ProgramAccount> programAccounts;
         try {
