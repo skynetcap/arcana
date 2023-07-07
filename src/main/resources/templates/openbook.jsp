@@ -87,23 +87,36 @@
                 <td>Wrapped SOL</td>
                 <td>USD Coin</td>
                 <td>TBD</td>
-                <td><a href="#" class="btn btn-primary">Add Strategy</a></td>
+                <td><a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td>Ether (Portal)</td>
                 <td>USD Coin</td>
                 <td>TBD</td>
-                <td><a href="#" class="btn btn-primary">Add Strategy</a></td>
+                <td><a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             <tr>
                 <th scope="row">3</th>
                 <td>Bonk</td>
                 <td>USD Coin</td>
                 <td>TBD</td>
-                <td><a href="#" class="btn btn-primary">Add Strategy</a></td>
+                <td><a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             </tbody>
+        </table>
+        <table>
+            <tr>
+                <th>Vendor</th>
+                <th>Product Name</th>
+                <th>Description</th>
+            </tr>
+            <tr th:each="market : ${markets}">
+                <td th:text="${market}"></td>
+            </tr>
         </table>
     </div>
 </main>

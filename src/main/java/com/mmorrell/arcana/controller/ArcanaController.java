@@ -1,5 +1,6 @@
-package com.mmorrell;
+package com.mmorrell.arcana.controller;
 
+import com.mmorrell.arcana.background.ArcanaBackgroundCache;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArcanaController {
 
     private RpcClient rpcClient;
+    private ArcanaBackgroundCache arcanaBackgroundCache;
 
-    public ArcanaController(RpcClient rpcClient) {
+    public ArcanaController(RpcClient rpcClient, ArcanaBackgroundCache arcanaBackgroundCache) {
         this.rpcClient = rpcClient;
+        this.arcanaBackgroundCache = arcanaBackgroundCache;
     }
 
     @RequestMapping("/")
@@ -41,6 +44,7 @@ public class ArcanaController {
     @RequestMapping("/openbook")
     public String openbookMarkets(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
         return "openbook";
     }
 
