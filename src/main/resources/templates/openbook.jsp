@@ -70,52 +70,22 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <h2>OpenBook Markets</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Base Token</th>
-                <th scope="col">Quote Token</th>
-                <th scope="col">Market ID</th>
-                <th scope="col">Add Strategy</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Wrapped SOL</td>
-                <td>USD Coin</td>
-                <td>TBD</td>
-                <td><a href="#" class="btn btn-primary">View</a>
-                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Ether (Portal)</td>
-                <td>USD Coin</td>
-                <td>TBD</td>
-                <td><a href="#" class="btn btn-primary">View</a>
-                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Bonk</td>
-                <td>USD Coin</td>
-                <td>TBD</td>
-                <td><a href="#" class="btn btn-primary">View</a>
-                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
-            </tr>
-            </tbody>
-        </table>
+        <h2>OpenBook Markets (<span th:text="${#lists.size(markets)}">0</span> markets)</h2>
         <table>
             <tr>
                 <th>#</th>
                 <th>Market</th>
+                <th>Base Token</th>
+                <th>Quote Token</th>
+                <th>Strategy</th>
             </tr>
             <tr th:each="market, state : ${markets}">
                 <td th:text="${state.count}"></td>
                 <td th:text="${market.ownAddress}"></td>
+                <td th:text="${market.baseMint}"</td>
+                <td th:text="${market.quoteMint}"</td>
+                <td><a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
         </table>
     </div>
