@@ -38,4 +38,10 @@ public class ArcanaController {
         return "settings";
     }
 
+    @RequestMapping("/openbook")
+    public String openbookMarkets(Model model) {
+        model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+        return "openbook";
+    }
+
 }
