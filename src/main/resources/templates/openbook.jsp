@@ -77,30 +77,30 @@
                 <th scope="col">#</th>
                 <th scope="col">Base Token</th>
                 <th scope="col">Quote Token</th>
-                <th scope="col">Base Deposits Total</th>
+                <th scope="col">Market ID</th>
                 <th scope="col">Add Strategy</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td>OpenBook</td>
-                <td>SOL/USDC</td>
-                <td>Spread</td>
+                <td>Wrapped SOL</td>
+                <td>USD Coin</td>
+                <td>TBD</td>
                 <td><a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             <tr>
                 <th scope="row">2</th>
-                <td>OpenBook</td>
-                <td>ETH/USDC</td>
-                <td>Spread</td>
+                <td>Ether (Portal)</td>
+                <td>USD Coin</td>
+                <td>TBD</td>
                 <td><a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             <tr>
                 <th scope="row">3</th>
-                <td>Drift</td>
-                <td>SOL-PERP</td>
-                <td>Spread</td>
+                <td>Bonk</td>
+                <td>USD Coin</td>
+                <td>TBD</td>
                 <td><a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             </tbody>
