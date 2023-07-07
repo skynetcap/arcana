@@ -58,10 +58,6 @@
                     <a class="nav-link" href="#">Drift</a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>
@@ -72,11 +68,11 @@
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View OpenBook markets &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View Drift markets &raquo;</a>
         <hr>
-        <h2>Active Bots</h2>
+        <h2>Strategies</h2>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Bot #</th>
+                <th scope="col">#</th>
                 <th scope="col">Exchange</th>
                 <th scope="col">Market</th>
                 <th scope="col">Strategy</th>
@@ -89,21 +85,21 @@
                 <td>OpenBook</td>
                 <td>SOL/USDC</td>
                 <td>Spread</td>
-                <td>00:01:00:00</td>
+                <td>0.5 hours</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td>OpenBook</td>
                 <td>ETH/USDC</td>
                 <td>Spread</td>
-                <td>00:01:00:00</td>
+                <td>Offline</td>
             </tr>
             <tr>
                 <th scope="row">3</th>
                 <td>Drift</td>
                 <td>SOL-PERP</td>
                 <td>Spread</td>
-                <td>00:01:00:00</td>
+                <td>Offline</td>
             </tr>
             </tbody>
         </table>
