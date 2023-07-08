@@ -1,5 +1,8 @@
 # arcana
 
+Local Web GUI for providing liquidity on Solana DEXes OpenBook and Drift.
+
+
 ---
 
 ## Use Cases
