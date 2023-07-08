@@ -1,5 +1,9 @@
 package com.mmorrell.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mmorrell.pyth.manager.PythManager;
+import com.mmorrell.serum.manager.SerumManager;
+import okhttp3.OkHttpClient;
 import org.p2p.solanaj.rpc.Cluster;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +29,26 @@ public class ArcanaWebConfig implements WebMvcConfigurer {
     @Bean
     public RpcClient rpcClient() {
         return new RpcClient(Cluster.BLOCKDAEMON);
+    }
+
+    @Bean
+    public SerumManager serumManager() {
+        return new SerumManager(rpcClient());
+    }
+
+    @Bean
+    public OkHttpClient okHttpClient() {
+        return new OkHttpClient();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    @Bean
+    public PythManager pythManager() {
+        return new PythManager(rpcClient());
     }
 
     @Bean
