@@ -11,7 +11,7 @@ public class BotManager {
     private final List<Strategy> strategyList = new ArrayList<>();
 
     public void addNewStrategy(Strategy strategy) {
-
+        strategyList.add(strategy);
     }
 
 
