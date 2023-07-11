@@ -70,45 +70,30 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <a class="btn btn-lg btn-success" href="../bots/add" role="button">✨ Strategies &raquo;</a>
-        <a class="btn btn-lg btn-primary" href="../openbook" role="button">View OpenBook markets &raquo;</a>
-        <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View Drift markets &raquo;</a>
-        <hr>
-        <h2>Strategies</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Exchange</th>
-                <th scope="col">Market</th>
-                <th scope="col">Strategy</th>
-                <th scope="col">Uptime</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>OpenBook</td>
-                <td>SOL/USDC</td>
-                <td>Spread</td>
-                <td>0.5 hours</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>OpenBook</td>
-                <td>ETH/USDC</td>
-                <td>Spread</td>
-                <td>Offline</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Drift</td>
-                <td>SOL-PERP</td>
-                <td>Spread</td>
-                <td>Offline</td>
-            </tr>
-            </tbody>
-        </table>
+        <h2>Start New Bot</h2>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Market ID</label>
+                    <input type="text" class="form-control" id="inputAddress">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Basis Points Spread</label>
+                    <input type="text" class="form-control" id="inputAddress2">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="amountBid">Bid Amount</label>
+                    <input type="text" class="form-control" id="amountBid">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="amountAsk">Ask Amount</label>
+                    <input type="text" class="form-control" id="amountAsk">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Start New Bot</button>
+        </form>
     </div>
 </main>
 
