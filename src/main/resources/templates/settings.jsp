@@ -49,7 +49,7 @@
                     <a class="nav-link" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">✨ Strategies</a>
+                    <a class="nav-link" href="../bots/add">✨ Strategies</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../openbook">OpenBook</a>

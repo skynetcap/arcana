@@ -46,10 +46,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../">Home</a>
+                    <a class="nav-link" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">✨ Strategies</a>
+                    <a class="nav-link active" aria-current="page"  href="../bots/add">✨ Strategies</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../openbook">OpenBook</a>
@@ -70,7 +70,7 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <a class="btn btn-lg btn-success" href="../components/navbar/" role="button">✨ Strategies &raquo;</a>
+        <a class="btn btn-lg btn-success" href="../bots/add" role="button">✨ Strategies &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../openbook" role="button">View OpenBook markets &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View Drift markets &raquo;</a>
         <hr>

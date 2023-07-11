@@ -8,10 +8,11 @@ import java.util.List;
 @Component
 public class BotManager {
 
-    private final List<Strategy> strategyList = new ArrayList<>();
+    private final List<OpenBookBot> botList = new ArrayList<>();
 
-    public void addNewStrategy(Strategy strategy) {
-        strategyList.add(strategy);
+    public void createNewBot(OpenBookBot bot) {
+        bot.getStrategy().start();
+        botList.add(bot);
     }
 
 

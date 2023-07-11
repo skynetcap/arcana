@@ -2,6 +2,7 @@ package com.mmorrell.arcana.controller;
 
 import com.mmorrell.arcana.background.ArcanaBackgroundCache;
 import com.mmorrell.arcana.strategies.BotManager;
+import com.mmorrell.arcana.strategies.OpenBookBot;
 import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
 import com.mmorrell.serum.manager.SerumManager;
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +54,8 @@ public class ArcanaController {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
 
         // Add new strategy to list.
-        botManager.addNewStrategy(new OpenBookSplUsdc(
-                serumManager,
-                rpcClient
-        ));
+        OpenBookBot openBookBot = new OpenBookBot();
+        //openBookBot.set
 
         return "view_bot";
     }
