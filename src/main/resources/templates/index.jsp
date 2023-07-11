@@ -86,9 +86,8 @@
                 <td th:text="${state.count}"></td>
                 <td th:text="OpenBook"></td>
                 <td th:text="${bot.marketId}"></td>
-                <td th:text="${bot.bpsSpread}"</td>
-                <td><a href="#" class="btn btn-primary">View</a>
-                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
+                <td th:text="${bot.bpsSpread} + 'bps Spread'"></td>
+                <td><a href="#" class="btn btn-primary">View</a></td>
             </tr>
             </tbody>
         </table>

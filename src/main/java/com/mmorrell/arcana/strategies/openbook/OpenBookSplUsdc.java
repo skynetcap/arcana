@@ -48,7 +48,7 @@ public class OpenBookSplUsdc extends Strategy {
     private double bestAskPrice;
 
     // Finals
-    private final Account mmAccount;
+    private Account mmAccount;
     private final Market solUsdcMarket;
     private final MarketBuilder solUsdcMarketBuilder;
     public static PublicKey MARKET_ID =
@@ -93,18 +93,17 @@ public class OpenBookSplUsdc extends Strategy {
         this.bestAskPrice = this.solUsdcMarket.getAskOrderBook().getBestAsk().getFloatPrice();
 
         // Load private key
-        ClassPathResource resource = new ClassPathResource(
-                "/mikefsWLEcNYHgsiwSRr6PVd7yVcoKeaURQqeDE1tXN.json",
-                ArcanaApplication.class
-        );
-
-        try (InputStream inputStream = resource.getInputStream()) {
-            String privateKeyJson = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-            this.mmAccount = Account.fromJson(privateKeyJson);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+//        ClassPathResource resource = new ClassPathResource(
+//                "/mikefsWLEcNYHgsiwSRr6PVd7yVcoKeaURQqeDE1tXN.json",
+//                ArcanaApplication.class
+//        );
+//
+//        try (InputStream inputStream = resource.getInputStream()) {
+//            String privateKeyJson = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+//            this.mmAccount = Account.fromJson(privateKeyJson);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
