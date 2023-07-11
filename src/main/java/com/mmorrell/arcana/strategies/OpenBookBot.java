@@ -7,7 +7,7 @@ import org.p2p.solanaj.core.PublicKey;
 public class OpenBookBot {
 
     private Strategy strategy;
-    private PublicKey marketId;
+    private PublicKey marketId = new PublicKey("8BnEgHoWFysVcuFFX7QztDmzuH8r5ZFvyP3sYwn1XTh6");
     private double bpsSpread;
     private double amountBid, amountAsk;
 

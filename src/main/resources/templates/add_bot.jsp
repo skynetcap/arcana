@@ -72,11 +72,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Market ID</label>
-                    <input type="text" class="form-control" id="inputAddress">
+                    <input type="text" class="form-control" id="inputAddress" th:field="*{marketId}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Basis Points Spread</label>
-                    <input type="text" class="form-control" id="inputAddress2">
+                    <input type="text" class="form-control" id="inputAddress2" th:field="*{bpsSpread}">
                 </div>
             </div>
             <div class="form-row">
@@ -92,15 +92,15 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="ooa">Open Orders Account</label>
-                    <input type="text" class="form-control" id="ooa">
+                    <input type="text" class="form-control" id="ooa" th:field="*{ooa}">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="baseWallet">Base Wallet</label>
-                    <input type="text" class="form-control" id="baseWallet">
+                    <input type="text" class="form-control" id="baseWallet" th:field="*{baseWallet}">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="quoteWallet">Quote Wallet</label>
-                    <input type="text" class="form-control" id="quoteWallet">
+                    <input type="text" class="form-control" id="quoteWallet" th:field="*{quoteWallet}">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Start New Bot</button>
