@@ -12,7 +12,7 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link href="../static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -32,7 +32,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="../static/navbar-top-fixed.css" rel="stylesheet">
+    <link href="/static/navbar-top-fixed.css" rel="stylesheet">
 </head>
 <body>
 
@@ -46,19 +46,16 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../bots/add">✨ Strategies</a>
+                    <a class="nav-link" href="/bots/add">✨ Strategies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../openbook">OpenBook</a>
+                    <a class="nav-link" href="/openbook">OpenBook</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Drift</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../settings">Settings</a>
+                    <a class="nav-link" href="/settings">Settings</a>
                 </li>
             </ul>
             <div class="d-flex navbar-text">
@@ -113,7 +110,7 @@
 </main>
 
 
-<script src="../static/bootstrap.bundle.min.js"></script>
+<script src="/static/bootstrap.bundle.min.js"></script>
 
 
 </body>

@@ -46,19 +46,16 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="../">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"  href="../bots/add">✨ Strategies</a>
+                    <a class="nav-link active" aria-current="page"  href="/bots/add">✨ Strategies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../openbook">OpenBook</a>
+                    <a class="nav-link" href="/openbook">OpenBook</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Drift</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../settings">Settings</a>
+                    <a class="nav-link" href="/settings">Settings</a>
                 </li>
             </ul>
             <div class="d-flex navbar-text">
@@ -71,7 +68,7 @@
 <main class="container">
     <div class="bg-light p-5 rounded">
         <h2>Start New Bot</h2>
-        <form>
+        <form class="form" method="POST" action="/bots/add/post">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Market ID</label>
@@ -90,6 +87,20 @@
                 <div class="form-group col-md-6">
                     <label for="amountAsk">Ask Amount</label>
                     <input type="text" class="form-control" id="amountAsk">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="ooa">Open Orders Account</label>
+                    <input type="text" class="form-control" id="ooa">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="baseWallet">Base Wallet</label>
+                    <input type="text" class="form-control" id="baseWallet">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="quoteWallet">Quote Wallet</label>
+                    <input type="text" class="form-control" id="quoteWallet">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Start New Bot</button>

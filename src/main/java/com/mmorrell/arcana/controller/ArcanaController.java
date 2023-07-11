@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,15 +50,15 @@ public class ArcanaController {
     }
 
     // Adds and starts a new SPL/USDC trading strategy.
-    @RequestMapping("/bots/add/post")
+    @PostMapping("/bots/add/post")
     public String arcanaBotAdd(Model model, @RequestParam(required = false) String strategy) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
 
         // Add new strategy to list.
         OpenBookBot openBookBot = new OpenBookBot();
-        //openBookBot.set
+        botManager.createNewBot(openBookBot);
 
-        return "view_bot";
+        return "index";
     }
 
     @RequestMapping("/openbook")
