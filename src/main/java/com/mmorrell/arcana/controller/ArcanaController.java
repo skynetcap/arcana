@@ -55,6 +55,7 @@ public class ArcanaController {
     @PostMapping("/bots/add/post")
     public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
         // Add new strategy to list.
+        // TODO if no private key loaded, bail out
         newBot.setStrategy(new OpenBookSplUsdc(serumManager, rpcClient));
 
         // TODO configure strategy using our private key and info
