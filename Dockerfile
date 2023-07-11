@@ -1,8 +1,5 @@
 FROM maven:3.8.6-eclipse-temurin-17 AS build
 
-#COPY gcloud.json /home/gcloud.json
-#ENV GOOGLE_APPLICATION_CREDENTIALS /home/gcloud.json
-
 # Yourkit
 #RUN apt-get update \
 #    && apt-get install unzip -y \
@@ -12,7 +9,6 @@ FROM maven:3.8.6-eclipse-temurin-17 AS build
 #  unzip /home/YourKit-JavaProfiler-2022.3-docker.zip -d /usr/local && \
 #  rm /home/YourKit-JavaProfiler-2022.3-docker.zip
 
-# serum-data
 COPY src /home/app/src
 COPY pom.xml /home/app
 RUN mvn -T 1C -f /home/app/pom.xml clean package -DskipTests -Dmaven.test.skip
