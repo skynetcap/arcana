@@ -10,7 +10,7 @@ public class BotManager {
 
     private final List<OpenBookBot> botList = new ArrayList<>();
 
-    public void createNewBot(OpenBookBot bot) {
+    public void addBot(OpenBookBot bot) {
         // bot.getStrategy().start();
         botList.add(bot);
     }

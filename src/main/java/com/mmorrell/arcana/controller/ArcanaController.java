@@ -7,17 +7,12 @@ import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
 import com.mmorrell.serum.manager.SerumManager;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.rpc.RpcClient;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -59,11 +54,11 @@ public class ArcanaController {
     // Adds and starts a new SPL/USDC trading strategy.
     @PostMapping("/bots/add/post")
     public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
-        //model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
-
         // Add new strategy to list.
-        botManager.createNewBot(newBot);
+        newBot.setStrategy(new OpenBookSplUsdc(serumManager, rpcClient));
 
+        // TODO configure strategy using our private key and info
+        botManager.addBot(newBot);
         log.info("New strategy created/started: " + newBot);
 
         return "redirect:/";
