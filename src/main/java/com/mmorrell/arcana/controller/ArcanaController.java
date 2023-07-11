@@ -48,7 +48,7 @@ public class ArcanaController {
     }
 
     // Adds and starts a new SPL/USDC trading strategy.
-    @RequestMapping("/bots/add")
+    @RequestMapping("/bots/add/post")
     public String arcanaBotAdd(Model model, @RequestParam(required = false) String strategy) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
 
@@ -66,6 +66,13 @@ public class ArcanaController {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
         model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
         return "openbook";
+    }
+
+    @RequestMapping("/bots/add")
+    public String arcanaBotWizard(Model model) {
+        model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
+        return "add_bot";
     }
 
 }
