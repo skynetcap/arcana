@@ -58,7 +58,7 @@ public class ArcanaController {
         OpenBookBot openBookBot = new OpenBookBot();
         botManager.createNewBot(openBookBot);
 
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/openbook")
