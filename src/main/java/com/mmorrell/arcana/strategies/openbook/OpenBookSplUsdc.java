@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 //@Component
 @Slf4j
 @Getter
-public class OpenBookMarinadeSolUsdc extends Strategy {
+public class OpenBookSplUsdc extends Strategy {
 
     private static final int EVENT_LOOP_INITIAL_DELAY_MS = 0;
     private static final int EVENT_LOOP_DURATION_MS = 5000;
@@ -51,12 +51,12 @@ public class OpenBookMarinadeSolUsdc extends Strategy {
     private final Account mmAccount;
     private final Market solUsdcMarket;
     private final MarketBuilder solUsdcMarketBuilder;
-    public static final PublicKey MARKET_ID =
+    public static PublicKey MARKET_ID =
             new PublicKey("9Lyhks5bQQxb9EyyX55NtgKQzpM4WK7JCmeaWuQ5MoXD");
 
-    private static final PublicKey MARKET_OOA = new PublicKey("7ExfcjBVhi4kjJiZA5WTpEzaUhHtZKgdjFg5wVFxfPvx");
-    private static final PublicKey MSOL_BASE_WALLET = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
-    private static final PublicKey USDC_QUOTE_WALLET = new PublicKey("A6Jcj1XV6QqDpdimmL7jm1gQtSP62j8BWbyqkdhe4eLe");
+    private static PublicKey MARKET_OOA = new PublicKey("7ExfcjBVhi4kjJiZA5WTpEzaUhHtZKgdjFg5wVFxfPvx");
+    private static PublicKey MSOL_BASE_WALLET = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
+    private static PublicKey USDC_QUOTE_WALLET = new PublicKey("A6Jcj1XV6QqDpdimmL7jm1gQtSP62j8BWbyqkdhe4eLe");
     private static final long BID_CLIENT_ID = 113371L;
     private static final long ASK_CLIENT_ID = 14201L;
 
@@ -77,8 +77,8 @@ public class OpenBookMarinadeSolUsdc extends Strategy {
     // Used to delay 2000ms on first order place.
     private static boolean firstLoadComplete = false;
 
-    public OpenBookMarinadeSolUsdc(final SerumManager serumManager,
-                                   final RpcClient rpcClient) {
+    public OpenBookSplUsdc(final SerumManager serumManager,
+                           final RpcClient rpcClient) {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
 
         this.serumManager = serumManager;

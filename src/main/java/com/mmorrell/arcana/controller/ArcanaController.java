@@ -1,12 +1,13 @@
 package com.mmorrell.arcana.controller;
 
 import com.mmorrell.arcana.background.ArcanaBackgroundCache;
+import com.mmorrell.arcana.strategies.BotManager;
+import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
+import com.mmorrell.serum.manager.SerumManager;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,10 +17,15 @@ public class ArcanaController {
 
     private RpcClient rpcClient;
     private ArcanaBackgroundCache arcanaBackgroundCache;
+    private final BotManager botManager;
+    private final SerumManager serumManager;
 
-    public ArcanaController(RpcClient rpcClient, ArcanaBackgroundCache arcanaBackgroundCache) {
+    public ArcanaController(RpcClient rpcClient, ArcanaBackgroundCache arcanaBackgroundCache, BotManager botManager,
+                            SerumManager serumManager) {
         this.rpcClient = rpcClient;
         this.arcanaBackgroundCache = arcanaBackgroundCache;
+        this.botManager = botManager;
+        this.serumManager = serumManager;
     }
 
     @RequestMapping("/")
@@ -37,6 +43,19 @@ public class ArcanaController {
         }
 
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+
+        return "settings";
+    }
+
+    @RequestMapping("/bots/add")
+    public String arcanaBotAdd(Model model, @RequestParam(required = false) String strategy) {
+        model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+
+        // Add new strategy to list.
+        botManager.addNewStrategy(new OpenBookSplUsdc(
+                serumManager,
+                rpcClient
+        ));
 
         return "settings";
     }
