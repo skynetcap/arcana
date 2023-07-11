@@ -67,10 +67,10 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <a class="btn btn-lg btn-success" href="../bots/add" role="button">✨ Create Bots &raquo;</a>
+        <a class="btn btn-lg btn-success" href="../bots/add" role="button">✨ Create Bot &raquo;</a>
         <a class="btn btn-lg btn-primary" href="../openbook" role="button">View OpenBook markets &raquo;</a>
         <hr>
-        <h2>Strategies</h2>
+        <h2>Active Bots</h2>
         <table class="table">
             <thead>
             <tr>
@@ -78,30 +78,17 @@
                 <th scope="col">Exchange</th>
                 <th scope="col">Market</th>
                 <th scope="col">Strategy</th>
-                <th scope="col">Uptime</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>OpenBook</td>
-                <td>SOL/USDC</td>
-                <td>Spread</td>
-                <td>0.5 hours</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>OpenBook</td>
-                <td>ETH/USDC</td>
-                <td>Spread</td>
-                <td>Offline</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Drift</td>
-                <td>SOL-PERP</td>
-                <td>Spread</td>
-                <td>Offline</td>
+            <tr th:each="bot, state : ${botList}">
+                <td th:text="${state.count}"></td>
+                <td th:text="OpenBook"></td>
+                <td th:text="${bot.marketId}"></td>
+                <td th:text="${bot.bpsSpread}"</td>
+                <td><a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
             </tbody>
         </table>

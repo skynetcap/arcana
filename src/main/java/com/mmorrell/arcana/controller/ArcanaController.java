@@ -39,6 +39,7 @@ public class ArcanaController {
     @RequestMapping("/")
     public String arcanaIndex(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+        model.addAttribute("botList", botManager.getBotList());
         return "index";
     }
 

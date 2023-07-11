@@ -15,6 +15,7 @@ public class BotManager {
         botList.add(bot);
     }
 
-
-
+    public List<OpenBookBot> getBotList() {
+        return botList;
+    }
 }
