@@ -7,11 +7,14 @@ import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
 import com.mmorrell.serum.manager.SerumManager;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.rpc.RpcClient;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -54,14 +57,13 @@ public class ArcanaController {
 
     // Adds and starts a new SPL/USDC trading strategy.
     @PostMapping("/bots/add/post")
-    public String arcanaBotAdd(Model model, @RequestParam(required = false) String strategy) {
-        model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+    public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
+        //model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
 
         // Add new strategy to list.
-        OpenBookBot openBookBot = new OpenBookBot();
-        botManager.createNewBot(openBookBot);
+        botManager.createNewBot(newBot);
 
-        log.info("New strategy created/started: " + openBookBot);
+        log.info("New strategy created/started: " + newBot);
 
         return "redirect:/";
     }
@@ -77,6 +79,9 @@ public class ArcanaController {
     public String arcanaBotWizard(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
         model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
+
+        model.addAttribute("newBot", new OpenBookBot());
+
         return "add_bot";
     }
 

@@ -68,7 +68,7 @@
 <main class="container">
     <div class="bg-light p-5 rounded">
         <h2>Start New Bot</h2>
-        <form class="form" method="POST" action="/bots/add/post">
+        <form class="form" action="#" method="POST" th:action="@{/bots/add/post}" th:object="${newBot}">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Market ID</label>
@@ -82,11 +82,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="amountBid">Bid Amount</label>
-                    <input type="text" class="form-control" id="amountBid">
+                    <input type="text" class="form-control" id="amountBid" th:field="*{amountBid}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="amountAsk">Ask Amount</label>
-                    <input type="text" class="form-control" id="amountAsk">
+                    <input type="text" class="form-control" id="amountAsk" th:field="*{amountAsk}">
                 </div>
             </div>
             <div class="form-row">
