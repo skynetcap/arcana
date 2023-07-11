@@ -10,8 +10,11 @@ import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -57,6 +60,8 @@ public class ArcanaController {
         // Add new strategy to list.
         OpenBookBot openBookBot = new OpenBookBot();
         botManager.createNewBot(openBookBot);
+
+        log.info("New strategy created/started: " + openBookBot);
 
         return "redirect:/";
     }
