@@ -67,7 +67,7 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        Bot #: <span th:text="${botId + 1}"></span>
+        🤖 Bot #: <span th:text="${botId + 1}"></span>
         <hr>
         Strategy: <span th:text="${strategyName}"></span>
         <hr>
