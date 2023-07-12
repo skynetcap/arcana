@@ -67,9 +67,13 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        <span th:text="${botId}"></span>
+        Bot #: <span th:text="${botId + 1}"></span>
         <hr>
-        <span th:text="${bot}"></span>
+        Strategy: <span th:text="${strategyName}"></span>
+        <hr>
+        Bot UUID:<span th:text="${botUuid}"></span>
+        <hr>
+        Bot: <span th:text="${bot}"></span>
     </div>
 </main>
 

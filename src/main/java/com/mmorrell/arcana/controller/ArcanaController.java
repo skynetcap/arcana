@@ -89,7 +89,13 @@ public class ArcanaController {
         model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
 
         model.addAttribute("botId", --botId);
-        model.addAttribute("bot", botManager.getBotList().get((int) botId).toString());
+
+        OpenBookBot bot = botManager.getBotList().get((int) botId);
+        model.addAttribute("bot", bot.toString());
+        model.addAttribute("botUuid", bot.getStrategy().uuid.toString());
+
+        // Strategy
+        model.addAttribute("strategyName", bot.getStrategy().getClass().getSimpleName());
 
         return "view_bot";
     }
