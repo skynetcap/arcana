@@ -10,6 +10,7 @@ import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,6 +81,17 @@ public class ArcanaController {
         model.addAttribute("newBot", new OpenBookBot());
 
         return "add_bot";
+    }
+
+    @RequestMapping("/bots/view/{id}")
+    public String arcanaBotWizard(Model model, @PathVariable("id") long botId) {
+        model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
+
+        model.addAttribute("botId", botId);
+        model.addAttribute("bot", botManager.getBotList().get((int) botId).toString());
+
+        return "view_bot";
     }
 
 }
