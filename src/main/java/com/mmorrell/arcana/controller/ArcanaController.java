@@ -88,7 +88,7 @@ public class ArcanaController {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
         model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
 
-        model.addAttribute("botId", botId);
+        model.addAttribute("botId", --botId);
         model.addAttribute("bot", botManager.getBotList().get((int) botId).toString());
 
         return "view_bot";
