@@ -93,6 +93,13 @@ public class ArcanaController {
         OpenBookBot bot = botManager.getBotList().get((int) botId);
         model.addAttribute("bot", bot.toString());
         model.addAttribute("botUuid", bot.getStrategy().uuid.toString());
+        model.addAttribute("botMarketId", bot.getMarketId().toBase58());
+        model.addAttribute("botBpsSpread", bot.getBpsSpread());
+        model.addAttribute("botAmountBid", bot.getAmountBid());
+        model.addAttribute("botAmountAsk", bot.getAmountAsk());
+        model.addAttribute("botOoa", bot.getOoa().toBase58());
+        model.addAttribute("botBaseWallet", bot.getBaseWallet().toBase58());
+        model.addAttribute("botQuoteWallet", bot.getQuoteWallet().toBase58());
 
         // Strategy
         model.addAttribute("strategyName", bot.getStrategy().getClass().getSimpleName());

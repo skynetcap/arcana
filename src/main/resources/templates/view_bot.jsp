@@ -67,13 +67,20 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        🤖 Bot #: <span th:text="${botId + 1}"></span>
+        🤖 Bot #<span th:text="${botId + 1}"></span>
         <hr>
         Strategy: <span th:text="${strategyName}"></span>
         <hr>
-        Bot UUID:<span th:text="${botUuid}"></span>
+        Bot UUID: <span th:text="${botUuid}"></span>
         <hr>
-        Bot: <span th:text="${bot}"></span>
+        Market ID: <span th:text="${botMarketId}"></span>
+        <hr>
+        Bps Spread: <span th:text="${botBpsSpread}"></span>
+        <hr>
+        Quote Sizes: Bid <span th:text="${botAmountBid}"></span>, Ask <span th:text="${botAmountAsk}"></span>
+        <hr>
+        OOA: <span th:text="${botOoa}"></span>, Base Wallet: <span th:text="${botBaseWallet}"></span>, Quote Wallet:
+        <span th:text="${botQuoteWallet}"></span>
     </div>
 </main>
 
