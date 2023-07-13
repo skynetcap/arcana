@@ -1,12 +1,11 @@
 package com.mmorrell.arcana.strategies.openbook;
 
-import com.mmorrell.common.model.GenericOrder;
-import com.mmorrell.common.model.Market;
-import com.mmorrell.common.model.MarketBuilder;
-import com.mmorrell.common.model.Order;
-import com.mmorrell.common.model.OrderTypeLayout;
-import com.mmorrell.common.model.SelfTradeBehaviorLayout;
 import com.mmorrell.serum.manager.SerumManager;
+import com.mmorrell.serum.model.Market;
+import com.mmorrell.serum.model.MarketBuilder;
+import com.mmorrell.serum.model.Order;
+import com.mmorrell.serum.model.OrderTypeLayout;
+import com.mmorrell.serum.model.SelfTradeBehaviorLayout;
 import com.mmorrell.serum.program.SerumProgram;
 import com.mmorrell.arcana.strategies.Strategy;
 import lombok.Getter;
@@ -120,8 +119,8 @@ public class OpenBookSplUsdc extends Strategy {
                     try {
                         // Get latest prices
                         solUsdcMarket.reload(solUsdcMarketBuilder);
-                        GenericOrder bestBid = solUsdcMarket.getBidOrderBook().getBestBid();
-                        GenericOrder bestAsk = solUsdcMarket.getAskOrderBook().getBestAsk();
+                        Order bestBid = solUsdcMarket.getBidOrderBook().getBestBid();
+                        Order bestAsk = solUsdcMarket.getAskOrderBook().getBestAsk();
 
                         this.bestBidPrice = bestBid.getFloatPrice();
                         this.bestAskPrice = bestAsk.getFloatPrice();
