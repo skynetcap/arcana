@@ -15,7 +15,7 @@ public class BotManager {
     private final List<OpenBookBot> botList = new ArrayList<>();
 
     public void addBot(OpenBookBot bot) {
-        // bot.getStrategy().start();
+        bot.getStrategy().start();
         botList.add(bot);
     }
 
