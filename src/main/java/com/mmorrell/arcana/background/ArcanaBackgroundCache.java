@@ -1,12 +1,11 @@
 package com.mmorrell.arcana.background;
 
-import com.mmorrell.common.SerumUtils;
-import com.mmorrell.common.model.Market;
+import com.mmorrell.serum.model.Market;
+import com.mmorrell.serum.model.SerumUtils;
 import org.p2p.solanaj.core.PublicKey;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.p2p.solanaj.rpc.RpcException;
 import org.p2p.solanaj.rpc.types.ProgramAccount;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
