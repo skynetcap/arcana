@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 // Auto feed SOL price into a cache from Pyth
-@Component
+//@Component
 @Slf4j
 public class PythPricingSource {
 

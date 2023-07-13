@@ -7,6 +7,7 @@ import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
 import com.mmorrell.serum.manager.SerumManager;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.core.Account;
+import org.p2p.solanaj.core.PublicKey;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 @Slf4j
@@ -49,6 +54,7 @@ public class ArcanaController {
         }
 
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
+        model.addAttribute("tradingAccountPubkey", botManager.getTradingAccount().getPublicKey().toBase58());
 
         return "settings";
     }
@@ -56,16 +62,16 @@ public class ArcanaController {
     // Adds and starts a new SPL/USDC trading strategy.
     @PostMapping("/bots/add/post")
     public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
-        // Add new strategy to list.
-        // TODO if no private key loaded, bail out
+        // Adds new strategy to list.
         OpenBookSplUsdc openBookSplUsdc = new OpenBookSplUsdc(serumManager, rpcClient);
-        openBookSplUsdc.setMarketId(newBot.getMarketId());
         openBookSplUsdc.setMmAccount(new Account());
-
-
+        openBookSplUsdc.setMarketId(newBot.getMarketId());
+        openBookSplUsdc.setMarketOoa(newBot.getOoa());
+        openBookSplUsdc.setBaseWallet(newBot.getBaseWallet());
+        openBookSplUsdc.setUsdcWallet(newBot.getQuoteWallet());
+        openBookSplUsdc.setMmAccount(botManager.getTradingAccount());
         newBot.setStrategy(openBookSplUsdc);
 
-        // TODO configure strategy using our private key and info
         botManager.addBot(newBot);
         log.info("New strategy created/started: " + newBot);
 
@@ -111,6 +117,19 @@ public class ArcanaController {
         model.addAttribute("strategyName", bot.getStrategy().getClass().getSimpleName());
 
         return "view_bot";
+    }
+
+    @PostMapping("/privateKeyUpload")
+    public String privateKeyUpload(@RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) {
+        try {
+            byte[] bytes = file.getBytes();
+            botManager.setTradingAccount(Account.fromJson(new String(bytes)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/settings";
     }
 
 }

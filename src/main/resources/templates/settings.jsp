@@ -68,19 +68,23 @@
 <main class="container">
     <div class="bg-light p-5 rounded">
         <h2>Settings</h2>
-        <form>
-            <div class="input-group mb-3">
-                <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/settings/save">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="rpc-server-text">RPC Server</span>
-                    </div>
-                    <label>
-                        <input class="form-control" type="text" required aria-describedby="rpc-server-text" name="rpc">
-                    </label>
-                    <button class="btn btn-primary btn-block" type="submit">Save</button>
-                </form>
-            </div>
-        </form>
+        <div class="input-group mb-3">
+            <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/settings/save">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="rpc-server-text">RPC Server</span>
+                </div>
+                <label>
+                    <input class="form-control" type="text" required aria-describedby="rpc-server-text" name="rpc">
+                </label>
+                <button class="btn btn-primary btn-block" type="submit">Save</button>
+            </form>
+            <hr>
+            Current account: <span th:text="${tradingAccountPubkey}"></span>
+            <form method="POST" action="/privateKeyUpload" enctype="multipart/form-data">
+                <input type="file" name="file"/><br/><br/>
+                <input type="submit" value="Upload Private Key"/>
+            </form>
+        </div>
     </div>
 </main>
 
