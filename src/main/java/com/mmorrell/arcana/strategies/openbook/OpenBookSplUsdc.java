@@ -94,19 +94,6 @@ public class OpenBookSplUsdc extends Strategy {
         this.solUsdcMarket = this.solUsdcMarketBuilder.build();
         this.bestBidPrice = this.solUsdcMarket.getBidOrderBook().getBestBid().getFloatPrice();
         this.bestAskPrice = this.solUsdcMarket.getAskOrderBook().getBestAsk().getFloatPrice();
-
-        // Load private key
-//        ClassPathResource resource = new ClassPathResource(
-//                "/mikefsWLEcNYHgsiwSRr6PVd7yVcoKeaURQqeDE1tXN.json",
-//                ArcanaApplication.class
-//        );
-//
-//        try (InputStream inputStream = resource.getInputStream()) {
-//            String privateKeyJson = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-//            this.mmAccount = Account.fromJson(privateKeyJson);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     @Override
