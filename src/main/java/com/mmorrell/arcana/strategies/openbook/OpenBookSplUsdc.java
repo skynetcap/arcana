@@ -1,6 +1,5 @@
 package com.mmorrell.arcana.strategies.openbook;
 
-import com.mmorrell.ArcanaApplication;
 import com.mmorrell.common.model.GenericOrder;
 import com.mmorrell.common.model.Market;
 import com.mmorrell.common.model.MarketBuilder;
@@ -11,6 +10,7 @@ import com.mmorrell.serum.manager.SerumManager;
 import com.mmorrell.serum.program.SerumProgram;
 import com.mmorrell.arcana.strategies.Strategy;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.core.Account;
 import org.p2p.solanaj.core.PublicKey;
@@ -20,11 +20,7 @@ import org.p2p.solanaj.programs.MemoProgram;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.p2p.solanaj.rpc.RpcException;
 import org.p2p.solanaj.rpc.types.config.Commitment;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
@@ -48,15 +44,23 @@ public class OpenBookSplUsdc extends Strategy {
     private double bestAskPrice;
 
     // Finals
+    @Setter
     private Account mmAccount;
-    private final Market solUsdcMarket;
-    private final MarketBuilder solUsdcMarketBuilder;
-    public static PublicKey MARKET_ID =
-            new PublicKey("9Lyhks5bQQxb9EyyX55NtgKQzpM4WK7JCmeaWuQ5MoXD");
 
-    private static PublicKey MARKET_OOA = new PublicKey("7ExfcjBVhi4kjJiZA5WTpEzaUhHtZKgdjFg5wVFxfPvx");
-    private static PublicKey MSOL_BASE_WALLET = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
-    private static PublicKey USDC_QUOTE_WALLET = new PublicKey("A6Jcj1XV6QqDpdimmL7jm1gQtSP62j8BWbyqkdhe4eLe");
+    private Market solUsdcMarket;
+    private final MarketBuilder solUsdcMarketBuilder;
+
+    @Setter
+    public PublicKey marketId = new PublicKey("9Lyhks5bQQxb9EyyX55NtgKQzpM4WK7JCmeaWuQ5MoXD");
+
+    @Setter
+    private PublicKey marketOoa = new PublicKey("7ExfcjBVhi4kjJiZA5WTpEzaUhHtZKgdjFg5wVFxfPvx");
+
+    @Setter
+    private PublicKey baseWallet = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
+
+    @Setter
+    private PublicKey usdcWallet = new PublicKey("A6Jcj1XV6QqDpdimmL7jm1gQtSP62j8BWbyqkdhe4eLe");
     private static final long BID_CLIENT_ID = 113371L;
     private static final long ASK_CLIENT_ID = 14201L;
 
@@ -86,7 +90,7 @@ public class OpenBookSplUsdc extends Strategy {
 
         this.solUsdcMarketBuilder = new MarketBuilder()
                 .setClient(rpcClient)
-                .setPublicKey(MARKET_ID)
+                .setPublicKey(marketId)
                 .setRetrieveOrderBooks(true);
         this.solUsdcMarket = this.solUsdcMarketBuilder.build();
         this.bestBidPrice = this.solUsdcMarket.getBidOrderBook().getBestBid().getFloatPrice();
@@ -123,7 +127,7 @@ public class OpenBookSplUsdc extends Strategy {
                         this.bestAskPrice = bestAsk.getFloatPrice();
 
                         boolean isCancelBid =
-                                solUsdcMarket.getBidOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(MARKET_OOA));
+                                solUsdcMarket.getBidOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(marketOoa));
 
                         float percentageChangeFromLastBid =
                                 1.00f - (lastPlacedBidPrice / ((float) bestBidPrice * BID_SPREAD_MULTIPLIER));
@@ -135,7 +139,7 @@ public class OpenBookSplUsdc extends Strategy {
                         }
 
                         boolean isCancelAsk =
-                                solUsdcMarket.getAskOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(MARKET_OOA));
+                                solUsdcMarket.getAskOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(marketOoa));
 
                         float percentageChangeFromLastAsk =
                                 1.00f - (lastPlacedAskPrice / ((float) bestAskPrice * ASK_SPREAD_MULTIPLIER));
@@ -185,10 +189,10 @@ public class OpenBookSplUsdc extends Strategy {
         placeTx.addInstruction(
                 SerumProgram.consumeEvents(
                         mmAccount.getPublicKey(),
-                        List.of(MARKET_OOA),
+                        List.of(marketOoa),
                         solUsdcMarket,
-                        MSOL_BASE_WALLET,
-                        USDC_QUOTE_WALLET
+                        baseWallet,
+                        usdcWallet
                 )
         );
 
@@ -207,7 +211,7 @@ public class OpenBookSplUsdc extends Strategy {
             placeTx.addInstruction(
                     SerumProgram.cancelOrderByClientId(
                             solUsdcMarket,
-                            MARKET_OOA,
+                            marketOoa,
                             mmAccount.getPublicKey(),
                             ASK_CLIENT_ID
                     )
@@ -219,18 +223,18 @@ public class OpenBookSplUsdc extends Strategy {
         placeTx.addInstruction(
                 SerumProgram.settleFunds(
                         solUsdcMarket,
-                        MARKET_OOA,
+                        marketOoa,
                         mmAccount.getPublicKey(),
-                        MSOL_BASE_WALLET, //random wsol acct for settles
-                        USDC_QUOTE_WALLET
+                        baseWallet, //random wsol acct for settles
+                        usdcWallet
                 )
         );
 
         placeTx.addInstruction(
                 SerumProgram.placeOrder(
                         mmAccount,
-                        MSOL_BASE_WALLET,
-                        MARKET_OOA,
+                        baseWallet,
+                        marketOoa,
                         solUsdcMarket,
                         askOrder
                 )
@@ -269,10 +273,10 @@ public class OpenBookSplUsdc extends Strategy {
         placeTx.addInstruction(
                 SerumProgram.consumeEvents(
                         mmAccount.getPublicKey(),
-                        List.of(MARKET_OOA),
+                        List.of(marketOoa),
                         solUsdcMarket,
-                        MSOL_BASE_WALLET,
-                        USDC_QUOTE_WALLET
+                        baseWallet,
+                        usdcWallet
                 )
         );
 
@@ -291,7 +295,7 @@ public class OpenBookSplUsdc extends Strategy {
             placeTx.addInstruction(
                     SerumProgram.cancelOrderByClientId(
                             solUsdcMarket,
-                            MARKET_OOA,
+                            marketOoa,
                             mmAccount.getPublicKey(),
                             BID_CLIENT_ID
                     )
@@ -303,18 +307,18 @@ public class OpenBookSplUsdc extends Strategy {
         placeTx.addInstruction(
                 SerumProgram.settleFunds(
                         solUsdcMarket,
-                        MARKET_OOA,
+                        marketOoa,
                         mmAccount.getPublicKey(),
-                        MSOL_BASE_WALLET, //random wsol acct for settles
-                        USDC_QUOTE_WALLET
+                        baseWallet, //random wsol acct for settles
+                        usdcWallet
                 )
         );
 
         placeTx.addInstruction(
                 SerumProgram.placeOrder(
                         mmAccount,
-                        USDC_QUOTE_WALLET,
-                        MARKET_OOA,
+                        usdcWallet,
+                        marketOoa,
                         solUsdcMarket,
                         bidOrder
                 )
@@ -338,7 +342,7 @@ public class OpenBookSplUsdc extends Strategy {
     private Optional<Double> getUsdcBalance() {
         try {
             double amount = rpcClient.getApi().getTokenAccountBalance(
-                            USDC_QUOTE_WALLET,
+                            usdcWallet,
                             Commitment.PROCESSED
                     )
                     .getUiAmount();
@@ -352,7 +356,7 @@ public class OpenBookSplUsdc extends Strategy {
     private Optional<Double> getBaseBalance() {
         try {
             double amount = rpcClient.getApi().getTokenAccountBalance(
-                            MSOL_BASE_WALLET,
+                            baseWallet,
                             Commitment.PROCESSED
                     )
                     .getUiAmount();

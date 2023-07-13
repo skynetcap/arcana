@@ -6,6 +6,7 @@ import com.mmorrell.arcana.strategies.OpenBookBot;
 import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
 import com.mmorrell.serum.manager.SerumManager;
 import lombok.extern.slf4j.Slf4j;
+import org.p2p.solanaj.core.Account;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +58,12 @@ public class ArcanaController {
     public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
         // Add new strategy to list.
         // TODO if no private key loaded, bail out
-        newBot.setStrategy(new OpenBookSplUsdc(serumManager, rpcClient));
+        OpenBookSplUsdc openBookSplUsdc = new OpenBookSplUsdc(serumManager, rpcClient);
+        openBookSplUsdc.setMarketId(newBot.getMarketId());
+        openBookSplUsdc.setMmAccount(new Account());
+
+
+        newBot.setStrategy(openBookSplUsdc);
 
         // TODO configure strategy using our private key and info
         botManager.addBot(newBot);
