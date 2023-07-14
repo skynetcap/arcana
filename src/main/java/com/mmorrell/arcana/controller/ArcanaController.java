@@ -71,6 +71,14 @@ public class ArcanaController {
         openBookSplUsdc.setMmAccount(botManager.getTradingAccount());
         openBookSplUsdc.setBaseAskAmount((float) newBot.getAmountAsk());
         openBookSplUsdc.setUsdcBidAmount((float) newBot.getAmountBid());
+
+        // bid + ask multiplier
+        float bidMultiplier = (10000.0f - (float) newBot.getBpsSpread()) / 10000.0f;
+        float askMultiplier = (10000.0f + (float) newBot.getBpsSpread()) / 10000.0f;
+
+        openBookSplUsdc.setBidSpreadMultiplier(bidMultiplier);
+        openBookSplUsdc.setAskSpreadMultiplier(askMultiplier);
+
         newBot.setStrategy(openBookSplUsdc);
 
         botManager.addBot(newBot);

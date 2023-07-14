@@ -18,10 +18,8 @@ import org.p2p.solanaj.programs.ComputeBudgetProgram;
 import org.p2p.solanaj.programs.MemoProgram;
 import org.p2p.solanaj.rpc.RpcClient;
 import org.p2p.solanaj.rpc.RpcException;
-import org.p2p.solanaj.rpc.types.config.Commitment;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -71,9 +69,12 @@ public class OpenBookSplUsdc extends Strategy {
     @Setter
     private float usdcBidAmount = SOL_QUOTE_SIZE;
 
-    // TODO take this from the config
-    private static final float ASK_SPREAD_MULTIPLIER = 1.0012f;
-    private static final float BID_SPREAD_MULTIPLIER = 0.9987f;
+    @Setter
+    private float askSpreadMultiplier = 1.0012f;
+
+    @Setter
+    private float bidSpreadMultiplier = 0.9987f;
+
     private static final float MIN_MIDPOINT_CHANGE = 0.0010f;
 
     private float lastPlacedBidPrice = 0.0f, lastPlacedAskPrice = 0.0f;
@@ -117,24 +118,24 @@ public class OpenBookSplUsdc extends Strategy {
                                 solUsdcMarket.getBidOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(marketOoa));
 
                         float percentageChangeFromLastBid =
-                                1.00f - (lastPlacedBidPrice / ((float) bestBidPrice * BID_SPREAD_MULTIPLIER));
+                                1.00f - (lastPlacedBidPrice / ((float) bestBidPrice * bidSpreadMultiplier));
 
                         // Only place bid if we haven't placed, or the change is >= 0.1% change
                         if (lastPlacedBidPrice == 0 || (Math.abs(percentageChangeFromLastBid) >= MIN_MIDPOINT_CHANGE)) {
-                            placeUsdcBid(usdcBidAmount, (float) bestBidPrice * BID_SPREAD_MULTIPLIER, isCancelBid);
-                            lastPlacedBidPrice = (float) bestBidPrice * BID_SPREAD_MULTIPLIER;
+                            placeUsdcBid(usdcBidAmount, (float) bestBidPrice * bidSpreadMultiplier, isCancelBid);
+                            lastPlacedBidPrice = (float) bestBidPrice * bidSpreadMultiplier;
                         }
 
                         boolean isCancelAsk =
                                 solUsdcMarket.getAskOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(marketOoa));
 
                         float percentageChangeFromLastAsk =
-                                1.00f - (lastPlacedAskPrice / ((float) bestAskPrice * ASK_SPREAD_MULTIPLIER));
+                                1.00f - (lastPlacedAskPrice / ((float) bestAskPrice * askSpreadMultiplier));
 
                         // Only place ask if we haven't placed, or the change is >= 0.1% change
                         if (lastPlacedAskPrice == 0 || (Math.abs(percentageChangeFromLastAsk) >= MIN_MIDPOINT_CHANGE)) {
-                            placeSolAsk(baseAskAmount, (float) bestAskPrice * ASK_SPREAD_MULTIPLIER, isCancelAsk);
-                            lastPlacedAskPrice = (float) bestAskPrice * ASK_SPREAD_MULTIPLIER;
+                            placeSolAsk(baseAskAmount, (float) bestAskPrice * askSpreadMultiplier, isCancelAsk);
+                            lastPlacedAskPrice = (float) bestAskPrice * askSpreadMultiplier;
                         }
 
                         if (!firstLoadComplete) {
