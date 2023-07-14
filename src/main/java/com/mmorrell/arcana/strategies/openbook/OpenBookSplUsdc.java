@@ -71,6 +71,7 @@ public class OpenBookSplUsdc extends Strategy {
     @Setter
     private float usdcBidAmount = SOL_QUOTE_SIZE;
 
+    // TODO take this from the config
     private static final float ASK_SPREAD_MULTIPLIER = 1.0012f;
     private static final float BID_SPREAD_MULTIPLIER = 0.9987f;
     private static final float MIN_MIDPOINT_CHANGE = 0.0010f;
