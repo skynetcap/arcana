@@ -53,7 +53,7 @@ public class OpenBookSplUsdc extends Strategy {
     public PublicKey marketId = new PublicKey("9Lyhks5bQQxb9EyyX55NtgKQzpM4WK7JCmeaWuQ5MoXD");
 
     @Setter
-    private PublicKey marketOoa = new PublicKey("7ExfcjBVhi4kjJiZA5WTpEzaUhHtZKgdjFg5wVFxfPvx");
+    private PublicKey marketOoa = new PublicKey("7hM4pmTbyfAUoxU9p8KCqdFfdPTLXc5xFijXsbumaqAa");
 
     @Setter
     private PublicKey baseWallet = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
@@ -229,7 +229,7 @@ public class OpenBookSplUsdc extends Strategy {
         placeTx.addInstruction(
                 MemoProgram.writeUtf8(
                         mmAccount.getPublicKey(),
-                        "MEMO"
+                        "Liquidity by Arcana"
                 )
         );
 
