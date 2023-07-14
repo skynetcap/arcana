@@ -69,6 +69,8 @@ public class ArcanaController {
         openBookSplUsdc.setBaseWallet(newBot.getBaseWallet());
         openBookSplUsdc.setUsdcWallet(newBot.getQuoteWallet());
         openBookSplUsdc.setMmAccount(botManager.getTradingAccount());
+        openBookSplUsdc.setBaseAskAmount((float) newBot.getAmountAsk());
+        openBookSplUsdc.setUsdcBidAmount((float) newBot.getAmountBid());
         newBot.setStrategy(openBookSplUsdc);
 
         botManager.addBot(newBot);

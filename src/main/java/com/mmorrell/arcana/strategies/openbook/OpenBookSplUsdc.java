@@ -64,18 +64,18 @@ public class OpenBookSplUsdc extends Strategy {
     private static final long ASK_CLIENT_ID = 14201L;
 
     private static final float SOL_QUOTE_SIZE = 0.1f;
-    private static float SOL_ASK_AMOUNT = SOL_QUOTE_SIZE;
-    private static float USDC_BID_AMOUNT = SOL_QUOTE_SIZE;
+
+    @Setter
+    private float baseAskAmount = SOL_QUOTE_SIZE;
+
+    @Setter
+    private float usdcBidAmount = SOL_QUOTE_SIZE;
+
     private static final float ASK_SPREAD_MULTIPLIER = 1.0012f;
     private static final float BID_SPREAD_MULTIPLIER = 0.9987f;
     private static final float MIN_MIDPOINT_CHANGE = 0.0010f;
 
     private float lastPlacedBidPrice = 0.0f, lastPlacedAskPrice = 0.0f;
-
-    // Leaning
-    private static final double WSOL_THRESHOLD_TO_LEAN_USDC = SOL_QUOTE_SIZE;
-    private static Optional<Double> USDC_BALANCE = Optional.empty();
-    private static Optional<Double> MSOL_BALANCE = Optional.empty();
 
     // Used to delay 2000ms on first order place.
     private static boolean firstLoadComplete = false;
@@ -120,7 +120,7 @@ public class OpenBookSplUsdc extends Strategy {
 
                         // Only place bid if we haven't placed, or the change is >= 0.1% change
                         if (lastPlacedBidPrice == 0 || (Math.abs(percentageChangeFromLastBid) >= MIN_MIDPOINT_CHANGE)) {
-                            placeUsdcBid(USDC_BID_AMOUNT, (float) bestBidPrice * BID_SPREAD_MULTIPLIER, isCancelBid);
+                            placeUsdcBid(usdcBidAmount, (float) bestBidPrice * BID_SPREAD_MULTIPLIER, isCancelBid);
                             lastPlacedBidPrice = (float) bestBidPrice * BID_SPREAD_MULTIPLIER;
                         }
 
@@ -132,7 +132,7 @@ public class OpenBookSplUsdc extends Strategy {
 
                         // Only place ask if we haven't placed, or the change is >= 0.1% change
                         if (lastPlacedAskPrice == 0 || (Math.abs(percentageChangeFromLastAsk) >= MIN_MIDPOINT_CHANGE)) {
-                            placeSolAsk(SOL_ASK_AMOUNT, (float) bestAskPrice * ASK_SPREAD_MULTIPLIER, isCancelAsk);
+                            placeSolAsk(baseAskAmount, (float) bestAskPrice * ASK_SPREAD_MULTIPLIER, isCancelAsk);
                             lastPlacedAskPrice = (float) bestAskPrice * ASK_SPREAD_MULTIPLIER;
                         }
 
@@ -235,7 +235,7 @@ public class OpenBookSplUsdc extends Strategy {
 
         try {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
-            log.info("MSOL Ask: " + askOrder.getFloatQuantity() + " @ " + askOrder.getFloatPrice());
+            log.info("MSOL Ask: " + askOrder.getFloatQuantity() + " @ " + askOrder.getFloatPrice() + ", " + orderTx);
         } catch (RpcException e) {
             log.error("OrderTx Error = " + e.getMessage());
         }
@@ -313,43 +313,15 @@ public class OpenBookSplUsdc extends Strategy {
         placeTx.addInstruction(
                 MemoProgram.writeUtf8(
                         mmAccount.getPublicKey(),
-                        "MEMO"
+                        "Liquidity by Arcana"
                 )
         );
 
         try {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
-            log.info("USDC Bid: " + bidOrder.getFloatQuantity() + " @ " + bidOrder.getFloatPrice());
+            log.info("USDC Bid: " + bidOrder.getFloatQuantity() + " @ " + bidOrder.getFloatPrice() + ", " + orderTx);
         } catch (RpcException e) {
             log.error("OrderTx Error = " + e.getMessage());
-        }
-    }
-
-    private Optional<Double> getUsdcBalance() {
-        try {
-            double amount = rpcClient.getApi().getTokenAccountBalance(
-                            usdcWallet,
-                            Commitment.PROCESSED
-                    )
-                    .getUiAmount();
-            return Optional.of(amount);
-        } catch (RpcException e) {
-            log.error("Unable to get USDC balance: " + e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    private Optional<Double> getBaseBalance() {
-        try {
-            double amount = rpcClient.getApi().getTokenAccountBalance(
-                            baseWallet,
-                            Commitment.PROCESSED
-                    )
-                    .getUiAmount();
-            return Optional.of(amount);
-        } catch (RpcException e) {
-            log.error("Unable to get Base balance: " + e.getMessage());
-            return Optional.empty();
         }
     }
 
