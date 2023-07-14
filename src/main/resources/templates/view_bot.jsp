@@ -67,11 +67,9 @@
 
 <main class="container">
     <div class="bg-light p-5 rounded">
-        🤖 Bot #<span th:text="${botId + 1}"></span>
+        🤖 Bot #<span th:text="${botId + 1}"></span> / <span th:text="${botUuid}"></span>
         <hr>
         Strategy: <span th:text="${strategyName}"></span>
-        <hr>
-        Bot UUID: <span th:text="${botUuid}"></span>
         <hr>
         Market ID: <span th:text="${botMarketId}"></span>
         <hr>
