@@ -162,7 +162,7 @@ public class OpenBookSplUsdc extends Strategy {
 
         placeTx.addInstruction(
                 ComputeBudgetProgram.setComputeUnitPrice(
-                        101_420
+                        151_420
                 )
         );
 
@@ -246,7 +246,7 @@ public class OpenBookSplUsdc extends Strategy {
 
         placeTx.addInstruction(
                 ComputeBudgetProgram.setComputeUnitPrice(
-                        101_420
+                        151_420
                 )
         );
 
