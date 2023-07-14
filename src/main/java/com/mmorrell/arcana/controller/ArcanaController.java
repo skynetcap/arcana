@@ -125,6 +125,12 @@ public class ArcanaController {
         // Strategy
         model.addAttribute("strategyName", bot.getStrategy().getClass().getSimpleName());
 
+        // Last bids / asks
+        if (bot.getStrategy() instanceof OpenBookSplUsdc) {
+            model.addAttribute("lastBidOrder", ((OpenBookSplUsdc) bot.getStrategy()).getLastBidOrder().toString());
+            model.addAttribute("lastAskOrder", ((OpenBookSplUsdc) bot.getStrategy()).getLastAskOrder().toString());
+        }
+
         return "view_bot";
     }
 

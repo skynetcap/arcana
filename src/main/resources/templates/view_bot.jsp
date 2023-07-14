@@ -81,6 +81,10 @@
         <hr>
         OOA: <span th:text="${botOoa}"></span>, Base Wallet: <span th:text="${botBaseWallet}"></span>, Quote Wallet:
         <span th:text="${botQuoteWallet}"></span>
+        <hr>
+        Last Bid order: <span th:text="${lastBidOrder}"></span>
+        <hr>
+        Last Ask order: <span th:text="${lastAskOrder}"></span>
     </div>
 </main>
 
