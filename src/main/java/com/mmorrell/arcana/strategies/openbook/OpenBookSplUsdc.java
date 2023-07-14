@@ -63,7 +63,7 @@ public class OpenBookSplUsdc extends Strategy {
     private static final long BID_CLIENT_ID = 113371L;
     private static final long ASK_CLIENT_ID = 14201L;
 
-    private static final float SOL_QUOTE_SIZE = 2.8877f;
+    private static final float SOL_QUOTE_SIZE = 0.1f;
     private static float SOL_ASK_AMOUNT = SOL_QUOTE_SIZE;
     private static float USDC_BID_AMOUNT = SOL_QUOTE_SIZE;
     private static final float ASK_SPREAD_MULTIPLIER = 1.0012f;
