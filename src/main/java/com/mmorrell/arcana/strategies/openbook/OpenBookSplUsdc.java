@@ -48,16 +48,14 @@ public class OpenBookSplUsdc extends Strategy {
     private final MarketBuilder solUsdcMarketBuilder;
 
     @Setter
-    public PublicKey marketId = new PublicKey("9Lyhks5bQQxb9EyyX55NtgKQzpM4WK7JCmeaWuQ5MoXD");
+    private PublicKey marketOoa;
 
     @Setter
-    private PublicKey marketOoa = new PublicKey("7hM4pmTbyfAUoxU9p8KCqdFfdPTLXc5xFijXsbumaqAa");
+    private PublicKey baseWallet;
 
     @Setter
-    private PublicKey baseWallet = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
+    private PublicKey usdcWallet;
 
-    @Setter
-    private PublicKey usdcWallet = new PublicKey("A6Jcj1XV6QqDpdimmL7jm1gQtSP62j8BWbyqkdhe4eLe");
     private static final long BID_CLIENT_ID = 113371L;
     private static final long ASK_CLIENT_ID = 14201L;
 
@@ -89,7 +87,8 @@ public class OpenBookSplUsdc extends Strategy {
     private static boolean firstLoadComplete = false;
 
     public OpenBookSplUsdc(final SerumManager serumManager,
-                           final RpcClient rpcClient) {
+                           final RpcClient rpcClient,
+                           final PublicKey marketId) {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
 
         this.serumManager = serumManager;
