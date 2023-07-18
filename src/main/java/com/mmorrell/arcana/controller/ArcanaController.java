@@ -1,6 +1,7 @@
 package com.mmorrell.arcana.controller;
 
 import com.mmorrell.arcana.background.ArcanaBackgroundCache;
+import com.mmorrell.arcana.pricing.JupiterPricingSource;
 import com.mmorrell.arcana.strategies.BotManager;
 import com.mmorrell.arcana.strategies.OpenBookBot;
 import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
@@ -29,13 +30,15 @@ public class ArcanaController {
     private ArcanaBackgroundCache arcanaBackgroundCache;
     private final BotManager botManager;
     private final SerumManager serumManager;
+    private final JupiterPricingSource jupiterPricingSource;
 
     public ArcanaController(RpcClient rpcClient, ArcanaBackgroundCache arcanaBackgroundCache, BotManager botManager,
-                            SerumManager serumManager) {
+                            SerumManager serumManager, JupiterPricingSource jupiterPricingSource) {
         this.rpcClient = rpcClient;
         this.arcanaBackgroundCache = arcanaBackgroundCache;
         this.botManager = botManager;
         this.serumManager = serumManager;
+        this.jupiterPricingSource = jupiterPricingSource;
     }
 
     @RequestMapping("/")
@@ -63,7 +66,7 @@ public class ArcanaController {
     @PostMapping("/bots/add/post")
     public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
         // Adds new strategy to list.
-        OpenBookSplUsdc openBookSplUsdc = new OpenBookSplUsdc(serumManager, rpcClient, newBot.getMarketId());
+        OpenBookSplUsdc openBookSplUsdc = new OpenBookSplUsdc(serumManager, rpcClient, newBot.getMarketId(), jupiterPricingSource);
         openBookSplUsdc.setMarketOoa(newBot.getOoa());
         openBookSplUsdc.setBaseWallet(newBot.getBaseWallet());
         openBookSplUsdc.setUsdcWallet(newBot.getQuoteWallet());

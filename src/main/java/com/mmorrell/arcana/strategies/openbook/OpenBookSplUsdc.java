@@ -1,5 +1,6 @@
 package com.mmorrell.arcana.strategies.openbook;
 
+import com.mmorrell.arcana.pricing.JupiterPricingSource;
 import com.mmorrell.serum.manager.SerumManager;
 import com.mmorrell.serum.model.Market;
 import com.mmorrell.serum.model.MarketBuilder;
@@ -20,6 +21,7 @@ import org.p2p.solanaj.rpc.RpcClient;
 import org.p2p.solanaj.rpc.RpcException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +37,7 @@ public class OpenBookSplUsdc extends Strategy {
     private final RpcClient rpcClient;
     private final SerumManager serumManager;
     private final ScheduledExecutorService executorService;
+    private final JupiterPricingSource jupiterPricingSource;
 
     // Dynamic
     private double bestBidPrice;
@@ -88,7 +91,8 @@ public class OpenBookSplUsdc extends Strategy {
 
     public OpenBookSplUsdc(final SerumManager serumManager,
                            final RpcClient rpcClient,
-                           final PublicKey marketId) {
+                           final PublicKey marketId,
+                           final JupiterPricingSource jupiterPricingSource) {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
 
         this.serumManager = serumManager;
@@ -99,8 +103,13 @@ public class OpenBookSplUsdc extends Strategy {
                 .setPublicKey(marketId)
                 .setRetrieveOrderBooks(true);
         this.solUsdcMarket = this.solUsdcMarketBuilder.build();
-        this.bestBidPrice = this.solUsdcMarket.getBidOrderBook().getBestBid().getFloatPrice();
-        this.bestAskPrice = this.solUsdcMarket.getAskOrderBook().getBestAsk().getFloatPrice();
+        this.jupiterPricingSource = jupiterPricingSource;
+        Optional<Double> price = jupiterPricingSource.getUsdcPriceForSymbol(solUsdcMarket.getBaseMint().toBase58(),
+                1000);
+        if (price.isPresent()) {
+            this.bestBidPrice = price.get();
+            this.bestAskPrice = price.get();
+        }
     }
 
     @Override
@@ -113,11 +122,12 @@ public class OpenBookSplUsdc extends Strategy {
                     try {
                         // Get latest prices
                         solUsdcMarket.reload(solUsdcMarketBuilder);
-                        Order bestBid = solUsdcMarket.getBidOrderBook().getBestBid();
-                        Order bestAsk = solUsdcMarket.getAskOrderBook().getBestAsk();
-
-                        this.bestBidPrice = bestBid.getFloatPrice();
-                        this.bestAskPrice = bestAsk.getFloatPrice();
+                        Optional<Double> price = jupiterPricingSource.getUsdcPriceForSymbol(solUsdcMarket.getBaseMint().toBase58(),
+                                1000);
+                        if (price.isPresent()) {
+                            this.bestBidPrice = price.get();
+                            this.bestAskPrice = price.get();
+                        }
 
                         boolean isCancelBid =
                                 solUsdcMarket.getBidOrderBook().getOrders().stream().anyMatch(order -> order.getOwner().equals(marketOoa));
