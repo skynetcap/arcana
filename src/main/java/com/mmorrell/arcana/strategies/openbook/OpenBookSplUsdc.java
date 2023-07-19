@@ -265,7 +265,7 @@ public class OpenBookSplUsdc extends Strategy {
 
         try {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
-            log.info("MSOL Ask: " + askOrder.getFloatQuantity() + " @ " + askOrder.getFloatPrice() + ", " + orderTx);
+            log.info("Base Ask: " + askOrder.getFloatQuantity() + " @ " + askOrder.getFloatPrice() + ", " + orderTx);
             lastAskOrder = askOrder;
         } catch (RpcException e) {
             log.error("OrderTx Error = " + e.getMessage());
@@ -350,7 +350,7 @@ public class OpenBookSplUsdc extends Strategy {
 
         try {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
-            log.info("USDC Bid: " + bidOrder.getFloatQuantity() + " @ " + bidOrder.getFloatPrice() + ", " + orderTx);
+            log.info("Quote Bid: " + bidOrder.getFloatQuantity() + " @ " + bidOrder.getFloatPrice() + ", " + orderTx);
             lastBidOrder = bidOrder;
         } catch (RpcException e) {
             log.error("OrderTx Error = " + e.getMessage());
