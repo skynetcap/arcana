@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 //@Component
@@ -61,8 +62,8 @@ public class OpenBookSplUsdc extends Strategy {
     @Setter
     private PublicKey usdcWallet;
 
-    private static final long BID_CLIENT_ID = new Random().nextLong();
-    private static final long ASK_CLIENT_ID = new Random().nextLong();
+    private static final long BID_CLIENT_ID = ThreadLocalRandom.current().nextInt(1111, 9999999);
+    private static final long ASK_CLIENT_ID = ThreadLocalRandom.current().nextInt(1111, 9999999);
 
     private static final float SOL_QUOTE_SIZE = 0.1f;
 
