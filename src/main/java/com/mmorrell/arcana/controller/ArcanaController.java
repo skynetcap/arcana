@@ -66,7 +66,13 @@ public class ArcanaController {
     @PostMapping("/bots/add/post")
     public String arcanaBotAdd(@ModelAttribute("newBot") OpenBookBot newBot) {
         // Adds new strategy to list.
-        OpenBookSplUsdc openBookSplUsdc = new OpenBookSplUsdc(serumManager, rpcClient, newBot.getMarketId(), jupiterPricingSource);
+        OpenBookSplUsdc openBookSplUsdc = new OpenBookSplUsdc(
+                serumManager,
+                rpcClient,
+                newBot.getMarketId(),
+                jupiterPricingSource,
+                newBot.getPriceStrategy()
+        );
         openBookSplUsdc.setMarketOoa(newBot.getOoa());
         openBookSplUsdc.setBaseWallet(newBot.getBaseWallet());
         openBookSplUsdc.setUsdcWallet(newBot.getQuoteWallet());

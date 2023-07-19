@@ -80,13 +80,20 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="amountBid">Bid Amount</label>
                     <input type="text" class="form-control" id="amountBid" th:field="*{amountBid}">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="amountAsk">Ask Amount</label>
                     <input type="text" class="form-control" id="amountAsk" th:field="*{amountAsk}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="priceStrategy">Pricing Strategy</label>
+                    <select id="priceStrategy" th:field="*{priceStrategy}">
+                        <option th:value="'jupiter'" th:text="'Jupiter + Spread'"></option>
+                        <option th:value="'tob'" th:text="'Top of Book + Spread'"></option>
+                    </select>
                 </div>
             </div>
             <div class="form-row">

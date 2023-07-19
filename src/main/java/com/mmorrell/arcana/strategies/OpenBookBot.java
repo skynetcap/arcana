@@ -15,6 +15,8 @@ public class OpenBookBot {
     private PublicKey baseWallet = new PublicKey("3UrEoG5UeE214PYQUA487oJRN89bg6fmt3ejkavmvZ81");
     private PublicKey quoteWallet = new PublicKey("A6Jcj1XV6QqDpdimmL7jm1gQtSP62j8BWbyqkdhe4eLe");;
 
+    private String priceStrategy = "jupiter";
+
     // marketId, bps spread, amount to bid, amount to ask
     // ooa pubkey, base wallet pubkey, quote pubkey
 

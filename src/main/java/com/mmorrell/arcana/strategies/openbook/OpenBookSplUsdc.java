@@ -40,6 +40,7 @@ public class OpenBookSplUsdc extends Strategy {
     private final JupiterPricingSource jupiterPricingSource;
 
     // Dynamic
+    private boolean useJupiter = false;
     private double bestBidPrice;
     private double bestAskPrice;
 
@@ -92,7 +93,8 @@ public class OpenBookSplUsdc extends Strategy {
     public OpenBookSplUsdc(final SerumManager serumManager,
                            final RpcClient rpcClient,
                            final PublicKey marketId,
-                           final JupiterPricingSource jupiterPricingSource) {
+                           final JupiterPricingSource jupiterPricingSource,
+                           final String pricingStrategy) {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
 
         this.serumManager = serumManager;
@@ -104,11 +106,16 @@ public class OpenBookSplUsdc extends Strategy {
                 .setRetrieveOrderBooks(true);
         this.solUsdcMarket = this.solUsdcMarketBuilder.build();
         this.jupiterPricingSource = jupiterPricingSource;
-        Optional<Double> price = jupiterPricingSource.getUsdcPriceForSymbol(solUsdcMarket.getBaseMint().toBase58(),
-                1000);
-        if (price.isPresent()) {
-            this.bestBidPrice = price.get();
-            this.bestAskPrice = price.get();
+
+        if (pricingStrategy.equalsIgnoreCase("jupiter")) {
+            useJupiter = true;
+
+            Optional<Double> price = jupiterPricingSource.getUsdcPriceForSymbol(solUsdcMarket.getBaseMint().toBase58(),
+                    1000);
+            if (price.isPresent()) {
+                this.bestBidPrice = price.get();
+                this.bestAskPrice = price.get();
+            }
         }
     }
 
@@ -122,11 +129,17 @@ public class OpenBookSplUsdc extends Strategy {
                     try {
                         // Get latest prices
                         solUsdcMarket.reload(solUsdcMarketBuilder);
-                        Optional<Double> price = jupiterPricingSource.getUsdcPriceForSymbol(solUsdcMarket.getBaseMint().toBase58(),
-                                1000);
-                        if (price.isPresent()) {
-                            this.bestBidPrice = price.get();
-                            this.bestAskPrice = price.get();
+
+                        if (useJupiter) {
+                            Optional<Double> price = jupiterPricingSource.getUsdcPriceForSymbol(solUsdcMarket.getBaseMint().toBase58(),
+                                    1000);
+                            if (price.isPresent()) {
+                                this.bestBidPrice = price.get();
+                                this.bestAskPrice = price.get();
+                            }
+                        } else {
+                            this.bestBidPrice = solUsdcMarket.getBidOrderBook().getBestBid().getFloatPrice();
+                            this.bestAskPrice = solUsdcMarket.getAskOrderBook().getBestAsk().getFloatPrice();
                         }
 
                         boolean isCancelBid =
