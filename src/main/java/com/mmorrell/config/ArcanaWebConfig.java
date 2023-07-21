@@ -28,7 +28,7 @@ public class ArcanaWebConfig implements WebMvcConfigurer {
 
     @Bean
     public RpcClient rpcClient() {
-        return new RpcClient("https://stylish-indulgent-liquid.solana-mainnet.quiknode.pro/478de0e2eb807f8adf229cd91b28673e66715172/");
+        return new RpcClient(Cluster.BLOCKDAEMON);
     }
 
     @Bean
