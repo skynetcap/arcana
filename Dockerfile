@@ -17,7 +17,7 @@ RUN mvn -T 1C -f /home/app/pom.xml clean package -DskipTests -Dmaven.test.skip
 #
 # Package stage
 #
-FROM ghcr.io/graalvm/jdk:22.3.1
+FROM ghcr.io/graalvm/jdk:22.3.2
 
 # Yourkit
 # COPY --from=build /usr/local/ /usr/local/
