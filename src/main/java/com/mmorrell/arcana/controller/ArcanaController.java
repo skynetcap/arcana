@@ -1,6 +1,5 @@
 package com.mmorrell.arcana.controller;
 
-import com.mmorrell.arcana.background.ArcanaBackgroundCache;
 import com.mmorrell.arcana.pricing.JupiterPricingSource;
 import com.mmorrell.arcana.strategies.BotManager;
 import com.mmorrell.arcana.strategies.OpenBookBot;
@@ -21,21 +20,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Collections;
 
 @Controller
 @Slf4j
 public class ArcanaController {
 
     private RpcClient rpcClient;
-    private ArcanaBackgroundCache arcanaBackgroundCache;
     private final BotManager botManager;
     private final SerumManager serumManager;
     private final JupiterPricingSource jupiterPricingSource;
 
-    public ArcanaController(RpcClient rpcClient, ArcanaBackgroundCache arcanaBackgroundCache, BotManager botManager,
+    public ArcanaController(RpcClient rpcClient, BotManager botManager,
                             SerumManager serumManager, JupiterPricingSource jupiterPricingSource) {
         this.rpcClient = rpcClient;
-        this.arcanaBackgroundCache = arcanaBackgroundCache;
         this.botManager = botManager;
         this.serumManager = serumManager;
         this.jupiterPricingSource = jupiterPricingSource;
@@ -98,14 +96,13 @@ public class ArcanaController {
     @RequestMapping("/openbook")
     public String openbookMarkets(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
-        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
+        model.addAttribute("markets", Collections.emptyList());
         return "openbook";
     }
 
     @RequestMapping("/bots/add")
     public String arcanaBotWizard(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
-        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
 
         model.addAttribute("newBot", new OpenBookBot());
 
@@ -115,8 +112,6 @@ public class ArcanaController {
     @RequestMapping("/bots/view/{id}")
     public String arcanaBotWizard(Model model, @PathVariable("id") long botId) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
-        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
-
         model.addAttribute("botId", --botId);
 
         OpenBookBot bot = botManager.getBotList().get((int) botId);

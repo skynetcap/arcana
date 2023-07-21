@@ -62,8 +62,8 @@ public class OpenBookSplUsdc extends Strategy {
     @Setter
     private PublicKey usdcWallet;
 
-    private static final long BID_CLIENT_ID = ThreadLocalRandom.current().nextInt(1111, 9999999);
-    private static final long ASK_CLIENT_ID = ThreadLocalRandom.current().nextInt(1111, 9999999);
+    private static long BID_CLIENT_ID;
+    private static long ASK_CLIENT_ID;
 
     private static final float SOL_QUOTE_SIZE = 0.1f;
 
@@ -119,6 +119,10 @@ public class OpenBookSplUsdc extends Strategy {
                 this.bestAskPrice = price.get();
             }
         }
+
+        BID_CLIENT_ID = ThreadLocalRandom.current().nextLong(1111, 9999999);
+        ASK_CLIENT_ID = ThreadLocalRandom.current().nextLong(1111, 9999999);
+        log.info("Bid clientId: " + BID_CLIENT_ID + ", Ask: " + ASK_CLIENT_ID);
     }
 
     @Override
