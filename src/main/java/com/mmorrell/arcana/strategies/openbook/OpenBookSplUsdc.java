@@ -262,13 +262,6 @@ public class OpenBookSplUsdc extends Strategy {
                 )
         );
 
-        placeTx.addInstruction(
-                MemoProgram.writeUtf8(
-                        mmAccount.getPublicKey(),
-                        "Liquidity by Arcana"
-                )
-        );
-
         try {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
             log.info("Base Ask: " + askOrder.getFloatQuantity() + " @ " + askOrder.getFloatPrice() + ", " + orderTx);
@@ -344,13 +337,6 @@ public class OpenBookSplUsdc extends Strategy {
                         marketOoa,
                         solUsdcMarket,
                         bidOrder
-                )
-        );
-
-        placeTx.addInstruction(
-                MemoProgram.writeUtf8(
-                        mmAccount.getPublicKey(),
-                        "Liquidity by Arcana"
                 )
         );
 
