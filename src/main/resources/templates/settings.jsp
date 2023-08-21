@@ -69,7 +69,7 @@
     <div class="bg-light p-5 rounded">
         <h2>Settings</h2>
         <div class="input-group mb-3">
-            <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/settings/save">
+            <form class="form-signin" method="POST" action="/settings/save">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="rpc-server-text">RPC Server</span>
                 </div>
