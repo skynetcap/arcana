@@ -4,11 +4,15 @@ import com.mmorrell.arcana.pricing.JupiterPricingSource;
 import com.mmorrell.arcana.strategies.BotManager;
 import com.mmorrell.arcana.strategies.OpenBookBot;
 import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
+import com.mmorrell.model.OpenBookContext;
 import com.mmorrell.serum.manager.SerumManager;
+import com.mmorrell.serum.model.Market;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.core.Account;
 import org.p2p.solanaj.core.PublicKey;
 import org.p2p.solanaj.rpc.RpcClient;
+import org.p2p.solanaj.rpc.RpcException;
+import org.p2p.solanaj.rpc.types.TokenAccountInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,11 +20,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -58,6 +66,46 @@ public class ArcanaController {
         model.addAttribute("tradingAccountPubkey", botManager.getTradingAccount().getPublicKey().toBase58());
 
         return "settings";
+    }
+
+    @RequestMapping("/getAccountsByMarket/{marketId}")
+    @ResponseBody
+    public OpenBookContext getMarketAccounts(Model model, @PathVariable String marketId) {
+        PublicKey pubkey = botManager.getTradingAccount().getPublicKey();
+        PublicKey marketIdPubkey = new PublicKey(marketId);
+        Map<String, Object> results = new HashMap<>();
+
+        // Get market, get base and quote mints. Check if we have wallets for them
+        try {
+            Market market = Market.readMarket(
+                    rpcClient.getApi().getAccountInfo(marketIdPubkey).getDecodedData()
+            );
+            log.info("Base Mint: " + market.getBaseMint());
+            log.info("Quote Mint: " + market.getQuoteMint());
+
+            Map<String, Object> requiredParams = Map.of("mint", market.getBaseMint());
+            TokenAccountInfo tokenAccount = rpcClient.getApi().getTokenAccountsByOwner(pubkey, requiredParams,
+                    new HashMap<>());
+            requiredParams = Map.of("mint", market.getQuoteMint());
+            TokenAccountInfo quoteTokenAccount = rpcClient.getApi().getTokenAccountsByOwner(pubkey, requiredParams,
+                    new HashMap<>());
+
+            log.info("Our base wallet: " + tokenAccount.getValue().get(0).getPubkey());
+            log.info("Our quote wallet: " + quoteTokenAccount.getValue().get(0).getPubkey());
+
+            results.put("baseWallet", tokenAccount.getValue().get(0).getPubkey());
+            results.put("quoteWallet", quoteTokenAccount.getValue().get(0).getPubkey());
+            results.put("ooa", null);
+
+            OpenBookContext openBookContext = new OpenBookContext();
+            openBookContext.setBaseWallet(tokenAccount.getValue().get(0).getPubkey());
+            openBookContext.setQuoteWallet(quoteTokenAccount.getValue().get(0).getPubkey());
+            openBookContext.setOoa(null);
+
+            return openBookContext;
+        } catch (RpcException e) {
+            return new OpenBookContext();
+        }
     }
 
     // Adds and starts a new SPL/USDC trading strategy.
@@ -136,6 +184,8 @@ public class ArcanaController {
 
         return "view_bot";
     }
+
+
 
     @PostMapping("/privateKeyUpload")
     public String privateKeyUpload(@RequestParam("file") MultipartFile file,

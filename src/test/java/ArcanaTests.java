@@ -1,0 +1,25 @@
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.p2p.solanaj.core.PublicKey;
+import org.p2p.solanaj.rpc.Cluster;
+import org.p2p.solanaj.rpc.RpcClient;
+import org.p2p.solanaj.rpc.RpcException;
+import org.p2p.solanaj.rpc.types.TokenAccountInfo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Slf4j
+public class ArcanaTests {
+
+    private final RpcClient rpcClient = new RpcClient(Cluster.BLOCKDAEMON);
+
+    @Test
+    public void ooaApiTest() throws RpcException {
+        Map<String, Object> requiredParams = Map.of("mint", new PublicKey("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"));
+        TokenAccountInfo tokenAccount = rpcClient.getApi().getTokenAccountsByOwner(PublicKey.valueOf(
+                "mikefsWLEcNYHgsiwSRr6PVd7yVcoKeaURQqeDE1tXN"), requiredParams, new HashMap<>());
+
+        log.info(tokenAccount.toString());
+    }
+}
