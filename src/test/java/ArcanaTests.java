@@ -1,3 +1,5 @@
+import com.mmorrell.serum.model.OpenOrdersAccount;
+import com.mmorrell.serum.model.SerumUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.p2p.solanaj.core.PublicKey;
@@ -21,5 +23,15 @@ public class ArcanaTests {
                 "mikefsWLEcNYHgsiwSRr6PVd7yVcoKeaURQqeDE1tXN"), requiredParams, new HashMap<>());
 
         log.info(tokenAccount.toString());
+
+        PublicKey jitoSolMarket = new PublicKey("JAmhJbmBzLp2aTp9mNJodPsTcpCJsmq5jpr6CuCbWHvR");
+
+        final OpenOrdersAccount openOrdersAccount = SerumUtils.findOpenOrdersAccountForOwner(
+                rpcClient,
+                jitoSolMarket,
+                PublicKey.valueOf("mikefsWLEcNYHgsiwSRr6PVd7yVcoKeaURQqeDE1tXN")
+        );
+
+        log.info("OOA: " + openOrdersAccount.getOwnPubkey().toBase58());
     }
 }
