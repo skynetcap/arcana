@@ -7,6 +7,8 @@ import com.mmorrell.arcana.strategies.openbook.OpenBookSplUsdc;
 import com.mmorrell.model.OpenBookContext;
 import com.mmorrell.serum.manager.SerumManager;
 import com.mmorrell.serum.model.Market;
+import com.mmorrell.serum.model.OpenOrdersAccount;
+import com.mmorrell.serum.model.SerumUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.p2p.solanaj.core.Account;
 import org.p2p.solanaj.core.PublicKey;
@@ -100,7 +102,14 @@ public class ArcanaController {
             OpenBookContext openBookContext = new OpenBookContext();
             openBookContext.setBaseWallet(tokenAccount.getValue().get(0).getPubkey());
             openBookContext.setQuoteWallet(quoteTokenAccount.getValue().get(0).getPubkey());
-            openBookContext.setOoa(null);
+
+            // OOA
+            final OpenOrdersAccount openOrdersAccount = SerumUtils.findOpenOrdersAccountForOwner(
+                    rpcClient,
+                    market.getOwnAddress(),
+                    pubkey
+            );
+            openBookContext.setOoa(openOrdersAccount.getOwnPubkey().toBase58());
 
             return openBookContext;
         } catch (RpcException e) {
