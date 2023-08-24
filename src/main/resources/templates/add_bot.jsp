@@ -112,7 +112,7 @@
             </script>
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <input type="button" value="Autofill acccounts (0-30 seconds)" onclick="autoFill()"/>
+                    <input type="button" value="Autofill accounts (0-30 seconds)" onclick="autoFill()"/>
                 </div>
             </div>
             <div class="form-row">
