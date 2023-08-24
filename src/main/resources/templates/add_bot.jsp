@@ -32,6 +32,7 @@
 
 
     <!-- Custom styles for this template -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="../static/navbar-top-fixed.css" rel="stylesheet">
 </head>
 <body>
@@ -49,7 +50,7 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"  href="/bots/add">✨ Strategies</a>
+                    <a class="nav-link active" aria-current="page" href="/bots/add">✨ Strategies</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/openbook">OpenBook</a>
@@ -94,6 +95,24 @@
                         <option th:value="'jupiter'" th:text="'Jupiter + Spread'"></option>
                         <option th:value="'tob'" th:text="'Top of Book + Spread'"></option>
                     </select>
+                </div>
+            </div>
+            <script>
+                function autoFill() {
+                    var marketId = $("#inputAddress").val();
+                    $.get('/getAccountsByMarket/' + marketId, function (data,
+                                                                        textStatus,
+                                                                        jqXHR) {
+                        //alert(JSON.stringify(data));
+                        $("#baseWallet").val(data.baseWallet);
+                        $("#quoteWallet").val(data.quoteWallet);
+                        $("#ooa").val(data.ooa);
+                    });
+                }
+            </script>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <input type="button" value="Autofill acccounts (0-30 seconds)" onclick="autoFill()"/>
                 </div>
             </div>
             <div class="form-row">
