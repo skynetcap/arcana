@@ -164,10 +164,15 @@ public class ArcanaController {
     }
 
     @RequestMapping("/bots/add")
-    public String arcanaBotWizard(Model model) {
+    public String arcanaBotWizard(Model model, @RequestParam(required = false) String marketId) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
 
-        model.addAttribute("newBot", new OpenBookBot());
+        OpenBookBot newBot = new OpenBookBot();
+        if (marketId != null) {
+            newBot.setMarketId(new PublicKey(marketId));
+        }
+        model.addAttribute("newBot", newBot);
+        model.addAttribute("marketId", marketId);
 
         return "add_bot";
     }

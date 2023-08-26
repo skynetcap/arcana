@@ -83,8 +83,8 @@
                 <td th:text="${market.baseMint}"></td>
                 <td th:text="${market.quoteMint}"></td>
                 <td th:text="${market.referrerRebatesAccrued}"></td>
-                <td><a href="#" class="btn btn-primary">View</a>
-                    <a href="#" class="btn btn-primary">Add Strategy</a></td>
+                <td><a th:href="${'/bots/add?marketId=' + market.ownAddress}" class="btn btn-primary">Add
+                    Strategy</a></td>
             </tr>
         </table>
     </div>
