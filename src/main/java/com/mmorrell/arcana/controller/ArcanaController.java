@@ -157,7 +157,9 @@ public class ArcanaController {
     @RequestMapping("/openbook")
     public String openbookMarkets(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
-        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
+        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets()
+                .stream().sorted((o1, o2) -> (int) (o2.getReferrerRebatesAccrued() - o1.getReferrerRebatesAccrued()))
+                .toList());
         return "openbook";
     }
 

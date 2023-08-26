@@ -66,7 +66,7 @@
 </nav>
 
 <main class="container">
-    <div class="bg-light p-5 rounded">
+    <div class="rounded">
         <h2>🏴‍☠️ OpenBook Markets (<span th:text="${#lists.size(markets)}">0</span> markets)</h2>
         <table>
             <tr>
@@ -74,13 +74,15 @@
                 <th>Market ID</th>
                 <th>Base Token</th>
                 <th>Quote Token</th>
+                <th>Rebates Accrued</th>
                 <th>Strategy</th>
             </tr>
             <tr th:each="market, state : ${markets}">
                 <td th:text="${state.count}"></td>
-                <td th:text="${#strings.substring(market.ownAddress, 0, 5)}"></td>
-                <td th:text="${market.baseMint}"</td>
-                <td th:text="${market.quoteMint}"</td>
+                <td th:text="${market.ownAddress}"></td>
+                <td th:text="${market.baseMint}"></td>
+                <td th:text="${market.quoteMint}"></td>
+                <td th:text="${market.referrerRebatesAccrued}"></td>
                 <td><a href="#" class="btn btn-primary">View</a>
                     <a href="#" class="btn btn-primary">Add Strategy</a></td>
             </tr>
