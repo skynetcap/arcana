@@ -12,20 +12,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// @Component
+@Component
 public class ArcanaBackgroundCache {
 
     private RpcClient rpcClient;
     public ArcanaBackgroundCache(RpcClient rpcClient) {
         this.rpcClient = rpcClient;
         this.cachedMarkets = new ArrayList<>();
-        backgroundCacheMarkets();
     }
 
     private List<Market> cachedMarkets;
 
     // Caches: List of all markets, ...
     public List<Market> getCachedMarkets() {
+        if (cachedMarkets.isEmpty()) {
+            backgroundCacheMarkets();
+        }
+
         return cachedMarkets;
     }
 

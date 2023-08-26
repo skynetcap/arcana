@@ -1,5 +1,6 @@
 package com.mmorrell.arcana.controller;
 
+import com.mmorrell.arcana.background.ArcanaBackgroundCache;
 import com.mmorrell.arcana.pricing.JupiterPricingSource;
 import com.mmorrell.arcana.strategies.BotManager;
 import com.mmorrell.arcana.strategies.OpenBookBot;
@@ -40,13 +41,16 @@ public class ArcanaController {
     private final BotManager botManager;
     private final SerumManager serumManager;
     private final JupiterPricingSource jupiterPricingSource;
+    private final ArcanaBackgroundCache arcanaBackgroundCache;
 
     public ArcanaController(RpcClient rpcClient, BotManager botManager,
-                            SerumManager serumManager, JupiterPricingSource jupiterPricingSource) {
+                            SerumManager serumManager, JupiterPricingSource jupiterPricingSource,
+                            ArcanaBackgroundCache arcanaBackgroundCache) {
         this.rpcClient = rpcClient;
         this.botManager = botManager;
         this.serumManager = serumManager;
         this.jupiterPricingSource = jupiterPricingSource;
+        this.arcanaBackgroundCache = arcanaBackgroundCache;
     }
 
     @RequestMapping("/")
@@ -153,7 +157,7 @@ public class ArcanaController {
     @RequestMapping("/openbook")
     public String openbookMarkets(Model model) {
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
-        model.addAttribute("markets", Collections.emptyList());
+        model.addAttribute("markets", arcanaBackgroundCache.getCachedMarkets());
         return "openbook";
     }
 
