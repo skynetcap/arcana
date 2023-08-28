@@ -78,11 +78,23 @@
                 </label>
                 <button class="btn btn-primary btn-block" type="submit">Save</button>
             </form>
-            <hr>
-            Current account: <span th:text="${tradingAccountPubkey}"></span>
+        </div>
+        <hr>
+        <div class="input-group mb-3">
+            Current account: <span th:text="${tradingAccountPubkey}"></span><br>
+        </div>
+        <hr>
+        <div class="input-group mb-3">
             <form method="POST" action="/privateKeyUpload" enctype="multipart/form-data">
-                <input type="file" name="file"/><br/><br/>
-                <input type="submit" value="Upload Private Key"/>
+                Private Key (File): <input type="file" name="file"/><br/><br/>
+                <input type="submit" class="btn btn-primary btn-block" value="Upload Private Key (File)"/>
+            </form>
+        </div>
+        <hr>
+        <div class="input-group mb-3">
+            <form method="POST" action="/privateKeyPost">
+                Private Key (Base58): <input type="text" name="privateKey"/><br/><br/>
+                <input type="submit" class="btn btn-primary btn-block" value="Upload Private Key (Base58)"/>
             </form>
         </div>
     </div>
