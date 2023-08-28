@@ -11,6 +11,7 @@ import com.mmorrell.serum.model.Market;
 import com.mmorrell.serum.model.OpenOrdersAccount;
 import com.mmorrell.serum.model.SerumUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.core.Base58;
 import org.p2p.solanaj.core.Account;
 import org.p2p.solanaj.core.PublicKey;
 import org.p2p.solanaj.rpc.RpcClient;
@@ -216,6 +217,14 @@ public class ArcanaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return "redirect:/settings";
+    }
+
+    @RequestMapping("/privateKeyPost")
+    public String privateKeyPost(Model model, @RequestParam String privateKey) {
+        byte[] bytes = Base58.decode(privateKey);
+        botManager.setTradingAccount(new Account(bytes));
 
         return "redirect:/settings";
     }
