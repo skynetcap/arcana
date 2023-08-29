@@ -206,6 +206,12 @@ public class ArcanaController {
         return "view_bot";
     }
 
+    @RequestMapping("/bots/stop/{id}")
+    public String arcanaBotStop(Model model, @PathVariable("id") long botId) {
+        botManager.stopBot(botId);
+        return "redirect:/";
+    }
+
 
 
     @PostMapping("/privateKeyUpload")
