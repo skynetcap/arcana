@@ -97,22 +97,26 @@
                     </select>
                 </div>
             </div>
-            <script>
-                function autoFill() {
-                    var marketId = $("#inputAddress").val();
-                    $.get('/getAccountsByMarket/' + marketId, function (data,
-                                                                        textStatus,
-                                                                        jqXHR) {
-                        //alert(JSON.stringify(data));
-                        $("#baseWallet").val(data.baseWallet);
-                        $("#quoteWallet").val(data.quoteWallet);
-                        $("#ooa").val(data.ooa);
-                    });
-                }
-            </script>
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <input type="button" value="Autofill accounts (0-30 seconds)" onclick="autoFill()"/>
+                    <input type="button" id="autoFillButton" value="Autofill accounts (0-30 seconds)"
+                           onclick="autoFill()"/>
+                    <script>
+                        function autoFill() {
+                            $("#autoFillButton").prop('disabled', true);
+                            var marketId = $("#inputAddress").val();
+                            $.get('/getAccountsByMarket/' + marketId, function (data,
+                                                                                textStatus,
+                                                                                jqXHR) {
+                                $("#baseWallet").val(data.baseWallet);
+                                $("#quoteWallet").val(data.quoteWallet);
+                                $("#ooa").val(data.ooa);
+                                $("#autoFillButton").prop('disabled', false);
+                            }).fail(function() {
+                                $("#autoFillButton").prop('disabled', false);
+                            });
+                        }
+                    </script>
                 </div>
             </div>
             <div class="form-row">
