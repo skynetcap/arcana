@@ -84,7 +84,7 @@
         <hr>
         Last Ask order: <span th:text="${lastAskOrder}"></span>
         <hr>
-        Bot Controls: <a th:href="${#strings.concat('/bots/stop/', botId)}">Stop Bot</a>
+        Bot Controls: <a th:href="${#strings.concat('/bots/stop/', botId)}">Remove Bot</a>
     </div>
 </main>
 

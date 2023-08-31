@@ -349,4 +349,9 @@ public class OpenBookSplUsdc extends Strategy {
         }
     }
 
+    @Override
+    public void stop() {
+        executorService.shutdown();
+        log.info("Bot stopped.");
+    }
 }

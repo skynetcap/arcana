@@ -22,4 +22,10 @@ public class BotManager {
     public List<OpenBookBot> getBotList() {
         return botList;
     }
+
+    public void stopBot(long botId) {
+        OpenBookBot bot = botList.get((int) botId);
+        bot.getStrategy().stop();
+        botList.remove((int) botId);
+    }
 }

@@ -15,4 +15,5 @@ public abstract class Strategy {
         log.info(this.getClass().getSimpleName() + " strategy instantiated.");
     }
 
+    public abstract void stop();
 }
