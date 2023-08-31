@@ -74,6 +74,22 @@
                 <div class="form-group col-md-6">
                     <label for="inputAddress">Market ID</label>
                     <input type="text" class="form-control" id="inputAddress" th:field="*{marketId}">
+                    <label for="presetMarkets">Preset Markets</label>
+                    <select id="presetMarkets">
+                        <option value="">Select a Market</option>
+                        <option value="8BnEgHoWFysVcuFFX7QztDmzuH8r5ZFvyP3sYwn1XTh6">SOL/USDC</option>
+                        <option value="9Lyhks5bQQxb9EyyX55NtgKQzpM4WK7JCmeaWuQ5MoXD">MSOL/USDC</option>
+                        <option value="BbJgE7HZMaDp5NTYvRh5jZSkQPVDTU8ubPFtpogUkEj4">ETH/USDC</option>
+                        <option value="3BAKsQd3RuhZKES2DGysMhjBdwjZYKYmxRqnSMtZ4KSN">WBTC/USDC</option>
+                        <option value="72h8rWaWwfPUL36PAFqyQZU8RT1V3FKG7Nc45aK89xTs">RLB/USDC</option>
+                        <option value="3NnxQvDcZXputNMxaxsGvqiKpqgPfSYXpNigZNFcknmD">MNGO/USDC</option>
+                        <option value="JAmhJbmBzLp2aTp9mNJodPsTcpCJsmq5jpr6CuCbWHvR">JitoSOL/USDC</option>
+                    </select>
+                    <script>
+                        $("#presetMarkets").on('change', function() {
+                            $("#inputAddress").val(this.value);
+                        });
+                    </script>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputAddress2">Basis Points Spread</label>
