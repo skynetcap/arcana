@@ -69,7 +69,7 @@
     <div class="bg-light p-5 rounded">
         <h2>Settings</h2>
         <div class="input-group mb-3">
-            <form class="form-signin" method="POST" action="/settings">
+            <form class="form-signin" autocomplete="off" autocapitalize="none" method="POST" action="/settings">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="rpc-server-text">RPC Server</span>
                 </div>
@@ -92,7 +92,7 @@
         </div>
         <hr>
         <div class="input-group mb-3">
-            <form method="POST" action="/privateKeyPost">
+            <form method="POST" action="/privateKeyPost" autocomplete="off" autocapitalize="none">
                 Private Key (Base58): <input type="text" name="privateKey"/><br/><br/>
                 <input type="submit" class="btn btn-primary btn-block" value="Upload Private Key (Base58)"/>
             </form>
@@ -100,9 +100,47 @@
     </div>
 </main>
 
-
 <script src="/static/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const rpcForm = document.querySelector("form[action='/settings']");
+    const privateKeyForm = document.querySelector("form[action='/privateKeyPost']");
+    const toastElement = document.getElementById('myToast');
+    toastElement.style.position = 'fixed';
+    toastElement.style.bottom = '0';
+    toastElement.style.right = '0';
+    toastElement.style.zIndex = '9999';
 
+    const showToastAndSubmit = function(event, form) {
+      event.preventDefault();
+      const toast = new bootstrap.Toast(document.querySelector('.toast'));
+      toast.show();
 
+      // Manually submit the form after a short delay to allow the toast to show
+      setTimeout(() => {
+        form.submit();
+      }, 2000); // 2 seconds
+    };
+
+    rpcForm.addEventListener("submit", function(event) {
+      showToastAndSubmit(event, rpcForm);
+    });
+
+    privateKeyForm.addEventListener("submit", function(event) {
+      showToastAndSubmit(event, privateKeyForm);
+    });
+  });
+</script>
+<div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <strong class="mr-auto">Success</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Your information has been saved successfully.
+  </div>
+</div>
 </body>
 </html>
