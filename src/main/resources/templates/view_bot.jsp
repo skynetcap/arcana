@@ -80,9 +80,13 @@
         OOA: <span th:text="${botOoa}"></span>, Base Wallet: <span th:text="${botBaseWallet}"></span>, Quote Wallet:
         <span th:text="${botQuoteWallet}"></span>
         <hr>
-        Last Bid order: <span th:text="${lastBidOrder}"></span>
+        Last Bid order: <span th:text="${lastBidOrder}"></span><br>
+        Last Bid TX: <a th:href="${#strings.concat('https://solana.fm/tx/', lastBidTx)}"><span
+            th:text="${lastBidTx}"></span></a>
         <hr>
-        Last Ask order: <span th:text="${lastAskOrder}"></span>
+        Last Ask order: <span th:text="${lastAskOrder}"></span><br>
+        Last Ask TX: <a th:href="${#strings.concat('https://solana.fm/tx/', lastAskTx)}"><span
+            th:text="${lastAskTx}"></span></a>
         <hr>
         Bot Controls: <a th:href="${#strings.concat('/bots/stop/', botId)}">Remove Bot</a>
     </div>

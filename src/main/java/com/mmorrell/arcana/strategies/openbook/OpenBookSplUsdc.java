@@ -87,7 +87,13 @@ public class OpenBookSplUsdc extends Strategy {
     private Order lastBidOrder;
 
     @Setter
+    private String lastBidTx;
+
+    @Setter
     private Order lastAskOrder;
+
+    @Setter
+    private String lastAskTx;
 
     // Used to delay 2000ms on first order place.
     private static boolean firstLoadComplete = false;
@@ -266,6 +272,7 @@ public class OpenBookSplUsdc extends Strategy {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
             log.info("Base Ask: " + askOrder.getFloatQuantity() + " @ " + askOrder.getFloatPrice() + ", " + orderTx);
             lastAskOrder = askOrder;
+            lastAskTx = orderTx;
         } catch (RpcException e) {
             log.error("OrderTx Error = " + e.getMessage());
         }
@@ -344,6 +351,7 @@ public class OpenBookSplUsdc extends Strategy {
             String orderTx = rpcClient.getApi().sendTransaction(placeTx, mmAccount);
             log.info("Quote Bid: " + bidOrder.getFloatQuantity() + " @ " + bidOrder.getFloatPrice() + ", " + orderTx);
             lastBidOrder = bidOrder;
+            lastBidTx = orderTx;
         } catch (RpcException e) {
             log.error("OrderTx Error = " + e.getMessage());
         }

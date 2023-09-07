@@ -201,6 +201,8 @@ public class ArcanaController {
         if (bot.getStrategy() instanceof OpenBookSplUsdc) {
             model.addAttribute("lastBidOrder", ((OpenBookSplUsdc) bot.getStrategy()).getLastBidOrder().toString());
             model.addAttribute("lastAskOrder", ((OpenBookSplUsdc) bot.getStrategy()).getLastAskOrder().toString());
+            model.addAttribute("lastBidTx", ((OpenBookSplUsdc) bot.getStrategy()).getLastBidTx());
+            model.addAttribute("lastAskTx", ((OpenBookSplUsdc) bot.getStrategy()).getLastAskTx());
         }
 
         return "view_bot";
