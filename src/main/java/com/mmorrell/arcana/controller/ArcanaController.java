@@ -223,7 +223,7 @@ public class ArcanaController {
             byte[] bytes = file.getBytes();
             botManager.setTradingAccount(Account.fromJson(new String(bytes)));
         } catch (IOException e) {
-            e.printStackTrace();
+            return "redirect:/settings";
         }
 
         return "redirect:/settings";
