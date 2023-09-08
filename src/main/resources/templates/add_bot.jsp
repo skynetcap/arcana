@@ -114,9 +114,29 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-12">
-                    <input type="button" id="autoFillButton" value="Autofill accounts (0-30 seconds)"
-                           onclick="autoFill()"/>
+                <div class="form-group col-md-6">
+                    <label for="amountSolToWrap">Amount of SOL to Wrap</label>
+                    <input type="text" class="form-control" id="amountSolToWrap">
+                    <button id="wrapSolButton" type="button" class="btn btn-primary" onclick="wrapSol()">Wrap
+                        SOL</button>
+                    <script>
+                        function wrapSol() {
+                            $("#wrapSolButton").prop('disabled', true);
+                            var amountSol = $("#amountSolToWrap").val();
+                            $.get('/wrap/' + amountSol, function (data, textStatus, jqXHR) {
+                                // put wrapped SOL in base wallet field
+                                $("#baseWallet").val(data.wsolPubkey);
+                                $("#wrapSolButton").prop('disabled', false);
+                            }).fail(function() {
+                                $("#wrapSolButton").prop('disabled', false);
+                            });
+                        }
+                    </script>
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="button" id="autoFillButton" class="btn btn-primary" onclick="autoFill()"
+                            style="margin: 20px">Autofill
+                        accounts (0-30 seconds)</button>
                     <script>
                         function autoFill() {
                             $("#autoFillButton").prop('disabled', true);

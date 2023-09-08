@@ -28,4 +28,8 @@ public class BotManager {
         bot.getStrategy().stop();
         botList.remove((int) botId);
     }
+
+    public Account getTradingAccount() {
+        return tradingAccount;
+    }
 }

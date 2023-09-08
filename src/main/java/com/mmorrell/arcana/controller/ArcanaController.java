@@ -75,6 +75,18 @@ public class ArcanaController {
         return "settings";
     }
 
+    @RequestMapping("/wrap/{amountSol}")
+    @ResponseBody
+    public Map<String, String> wrapSol(Model model, @PathVariable Double amountSol) {
+        return Map.of(
+                "wsolPubkey",
+                arcanaBackgroundCache.wrapSol(
+                        botManager.getTradingAccount(),
+                        amountSol
+                ).toBase58()
+        );
+    }
+
     @RequestMapping("/getAccountsByMarket/{marketId}")
     @ResponseBody
     public OpenBookContext getMarketAccounts(Model model, @PathVariable String marketId) {
