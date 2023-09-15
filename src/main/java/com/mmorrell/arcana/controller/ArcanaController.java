@@ -76,6 +76,7 @@ public class ArcanaController {
 
         model.addAttribute("rpcEndpoint", rpcClient.getEndpoint());
         model.addAttribute("tradingAccountPubkey", botManager.getTradingAccount().getPublicKey().toBase58());
+        model.addAttribute("arcanaAccounts", arcanaAccountManager.getArcanaAccounts());
 
         return "settings";
     }
@@ -97,6 +98,14 @@ public class ArcanaController {
     public List<Map<String, String>> getAllAccounts(Model model) {
         return arcanaAccountManager.getArcanaAccounts().stream()
                 .map(account -> Map.of("pubkey", account.getPublicKey().toBase58()))
+                .toList();
+    }
+
+    @RequestMapping("/accounts/getAllPrivateAccounts")
+    @ResponseBody
+    public List<Map<String, String>> getAllPrivateAccounts(Model model) {
+        return arcanaAccountManager.getArcanaAccounts().stream()
+                .map(account -> Map.of("privatekey", Base58.encode(account.getSecretKey())))
                 .toList();
     }
 

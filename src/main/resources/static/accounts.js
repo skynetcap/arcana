@@ -6,5 +6,14 @@ function addArcanaAccount(newAccount){
     localStorage.setItem('arcanaAccounts', JSON.stringify(arcanaAccountsArray));
 }
 
+function clearAccounts() {
+    arcanaAccountsArray = [];
+    localStorage.setItem('arcanaAccounts', JSON.stringify(arcanaAccountsArray));
+}
+
+function getLoadedArcanaAccounts() {
+    return arcanaAccountsArray;
+}
+
 // on app load, send all arcana accounts to the backend
 

@@ -33,7 +33,23 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/navbar-top-fixed.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="/static/accounts.js"></script>
+    <script>
+        // on page load, load private keys from back end and persist them.
+        // this occurs on pkey add, otherwise is idempotent (no effect)
+        $.get('/accounts/getAllPrivateAccounts', function (data, textStatus, jqXHR) {
+            $.each(data , function(index, val) {
+                if (!arcanaAccountsArray.includes(val.privatekey)) {
+                    addArcanaAccount(val.privatekey);
+                }
+            });
+
+            // TODO make this sync with the backend
+            alert(getLoadedArcanaAccounts());
+        });
+
+    </script>
 </head>
 <body>
 
@@ -76,13 +92,10 @@
             </ul>
             <script>
                 // HTTP Get to load all accounts we have on the backend (show their public key)
-                var amountSol = $("#amountSolToWrap").val();
                 $.get('/accounts/getAllAccounts', function (data, textStatus, jqXHR) {
-                    // put wrapped SOL in base wallet field
-                    $("#baseWallet").val(data.wsolPubkey);
-                    $("#wrapSolButton").prop('disabled', false);
-                }).fail(function() {
-                    $("#wrapSolButton").prop('disabled', false);
+                    $.each(data , function(index, val) {
+                        $("#tradingAccounts").append("<li>" + val.pubkey + "</li>");
+                    });
                 });
             </script>
         </div>
