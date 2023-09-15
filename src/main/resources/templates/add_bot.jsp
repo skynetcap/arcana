@@ -33,6 +33,7 @@
 
     <!-- Custom styles for this template -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="/static/accounts.js"></script>
     <link href="../static/navbar-top-fixed.css" rel="stylesheet">
 </head>
 <body>

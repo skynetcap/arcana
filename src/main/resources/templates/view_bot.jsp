@@ -33,6 +33,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/navbar-top-fixed.css" rel="stylesheet">
+    <script src="/static/accounts.js"></script>
 </head>
 <body>
 
