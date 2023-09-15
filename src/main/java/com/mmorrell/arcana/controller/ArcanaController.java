@@ -1,5 +1,6 @@
 package com.mmorrell.arcana.controller;
 
+import com.mmorrell.arcana.background.ArcanaAccountManager;
 import com.mmorrell.arcana.background.ArcanaBackgroundCache;
 import com.mmorrell.arcana.pricing.JupiterPricingSource;
 import com.mmorrell.arcana.strategies.BotManager;
@@ -10,6 +11,7 @@ import com.mmorrell.serum.manager.SerumManager;
 import com.mmorrell.serum.model.Market;
 import com.mmorrell.serum.model.OpenOrdersAccount;
 import com.mmorrell.serum.model.SerumUtils;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.Base58;
 import org.p2p.solanaj.core.Account;
@@ -31,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -43,15 +46,17 @@ public class ArcanaController {
     private final SerumManager serumManager;
     private final JupiterPricingSource jupiterPricingSource;
     private final ArcanaBackgroundCache arcanaBackgroundCache;
+    private final ArcanaAccountManager arcanaAccountManager;
 
     public ArcanaController(RpcClient rpcClient, BotManager botManager,
                             SerumManager serumManager, JupiterPricingSource jupiterPricingSource,
-                            ArcanaBackgroundCache arcanaBackgroundCache) {
+                            ArcanaBackgroundCache arcanaBackgroundCache, ArcanaAccountManager arcanaAccountManager) {
         this.rpcClient = rpcClient;
         this.botManager = botManager;
         this.serumManager = serumManager;
         this.jupiterPricingSource = jupiterPricingSource;
         this.arcanaBackgroundCache = arcanaBackgroundCache;
+        this.arcanaAccountManager = arcanaAccountManager;
     }
 
     @RequestMapping("/")
@@ -85,6 +90,14 @@ public class ArcanaController {
                         amountSol
                 ).toBase58()
         );
+    }
+
+    @RequestMapping("/accounts/getAllAccounts")
+    @ResponseBody
+    public List<Map<String, String>> getAllAccounts(Model model) {
+        return arcanaAccountManager.getArcanaAccounts().stream()
+                .map(account -> Map.of("pubkey", account.getPublicKey().toBase58()))
+                .toList();
     }
 
     @RequestMapping("/getAccountsByMarket/{marketId}")
@@ -227,13 +240,19 @@ public class ArcanaController {
     }
 
 
-
     @PostMapping("/privateKeyUpload")
     public String privateKeyUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         try {
             byte[] bytes = file.getBytes();
             botManager.setTradingAccount(Account.fromJson(new String(bytes)));
+
+            // if a new account, add to our cache / like a Set
+            if (arcanaAccountManager.getArcanaAccounts().stream()
+                    .noneMatch(account -> account.getPublicKey().toBase58()
+                            .equals(botManager.getTradingAccount().getPublicKey().toBase58()))) {
+                arcanaAccountManager.getArcanaAccounts().add(botManager.getTradingAccount());
+            }
         } catch (IOException e) {
             return "redirect:/settings";
         }
@@ -245,6 +264,13 @@ public class ArcanaController {
     public String privateKeyPost(Model model, @RequestParam String privateKey) {
         byte[] bytes = Base58.decode(privateKey);
         botManager.setTradingAccount(new Account(bytes));
+
+        // if a new account, add to our cache
+        if (arcanaAccountManager.getArcanaAccounts().stream()
+                .noneMatch(account -> account.getPublicKey().toBase58()
+                        .equals(botManager.getTradingAccount().getPublicKey().toBase58()))) {
+            arcanaAccountManager.getArcanaAccounts().add(botManager.getTradingAccount());
+        }
 
         return "redirect:/settings";
     }

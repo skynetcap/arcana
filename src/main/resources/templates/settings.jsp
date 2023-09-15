@@ -69,6 +69,23 @@
 <main class="container">
     <div class="bg-light p-5 rounded">
         <h2>Settings</h2>
+        <div class="mb-3">
+            <span class="input-group-text">Trading Accounts</span>
+            <ul id="tradingAccounts">
+
+            </ul>
+            <script>
+                // HTTP Get to load all accounts we have on the backend (show their public key)
+                var amountSol = $("#amountSolToWrap").val();
+                $.get('/accounts/getAllAccounts', function (data, textStatus, jqXHR) {
+                    // put wrapped SOL in base wallet field
+                    $("#baseWallet").val(data.wsolPubkey);
+                    $("#wrapSolButton").prop('disabled', false);
+                }).fail(function() {
+                    $("#wrapSolButton").prop('disabled', false);
+                });
+            </script>
+        </div>
         <div class="input-group mb-3">
             <form class="form-signin" method="POST" action="/settings">
                 <div class="input-group-prepend">
