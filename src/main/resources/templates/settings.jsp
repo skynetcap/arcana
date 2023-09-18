@@ -36,6 +36,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="/static/accounts.js"></script>
     <script>
+        // push our LocalStorage our keys into the backend.
+
+
+
+    </script>
+    <script>
         // on page load, load private keys from back end and persist them.
         // this occurs on pkey add, otherwise is idempotent (no effect)
         $.get('/accounts/getAllPrivateAccounts', function (data, textStatus, jqXHR) {
