@@ -39,7 +39,7 @@
         // push our LocalStorage our keys into the backend.
         $.post("/settings/localStorage", {localStorage: localStorage.getItem('arcanaAccounts')})
             .done(function (data) {
-                alert("Data Loaded: " + data);
+                //alert("Data Loaded: " + data);
             });
     </script>
     <script>
@@ -53,7 +53,7 @@
             });
 
             // TODO make this sync with the backend
-            alert(getLoadedArcanaAccounts());
+            // alert(getLoadedArcanaAccounts());
         });
 
     </script>
