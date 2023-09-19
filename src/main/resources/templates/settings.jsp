@@ -37,15 +37,16 @@
     <script src="/static/accounts.js"></script>
     <script>
         // push our LocalStorage our keys into the backend.
-
-
-
+        $.post("/settings/localStorage", {localStorage: localStorage.getItem('arcanaAccounts')})
+            .done(function (data) {
+                alert("Data Loaded: " + data);
+            });
     </script>
     <script>
         // on page load, load private keys from back end and persist them.
         // this occurs on pkey add, otherwise is idempotent (no effect)
         $.get('/accounts/getAllPrivateAccounts', function (data, textStatus, jqXHR) {
-            $.each(data , function(index, val) {
+            $.each(data, function (index, val) {
                 if (!arcanaAccountsArray.includes(val.privatekey)) {
                     addArcanaAccount(val.privatekey);
                 }
@@ -99,7 +100,7 @@
             <script>
                 // HTTP Get to load all accounts we have on the backend (show their public key)
                 $.get('/accounts/getAllAccounts', function (data, textStatus, jqXHR) {
-                    $.each(data , function(index, val) {
+                    $.each(data, function (index, val) {
                         $("#tradingAccounts").append("<li>" + val.pubkey + "</li>");
                     });
                 });

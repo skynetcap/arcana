@@ -14,6 +14,7 @@ import com.mmorrell.serum.model.SerumUtils;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.Base58;
+import org.json.JSONArray;
 import org.p2p.solanaj.core.Account;
 import org.p2p.solanaj.core.PublicKey;
 import org.p2p.solanaj.rpc.RpcClient;
@@ -284,4 +285,22 @@ public class ArcanaController {
         return "redirect:/settings";
     }
 
+    @RequestMapping("/settings/localStorage")
+    public String localStorage(Model model, @RequestParam String localStorage) {
+        log.info("localStorage: " + localStorage);
+
+        JSONArray jsonArray = new JSONArray(localStorage);
+        jsonArray.forEach(privateKey -> {
+            byte[] privateKeyBytes = Base58.decode(privateKey.toString());
+            Account newAccount = new Account(privateKeyBytes);
+            log.info("New account from LS: " + newAccount.getPublicKey().toBase58());
+            if (arcanaAccountManager.getArcanaAccounts().stream()
+                    .noneMatch(account -> account.getPublicKey().toBase58()
+                            .equals(newAccount.getPublicKey().toBase58()))) {
+                arcanaAccountManager.getArcanaAccounts().add(newAccount);
+            }
+        });
+
+        return "redirect:/settings";
+    }
 }
