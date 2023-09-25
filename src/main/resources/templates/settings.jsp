@@ -101,7 +101,8 @@
                 // HTTP Get to load all accounts we have on the backend (show their public key)
                 $.get('/accounts/getAllAccounts', function (data, textStatus, jqXHR) {
                     $.each(data, function (index, val) {
-                        $("#tradingAccounts").append("<li>" + val.pubkey + "</li>");
+                        $("#tradingAccounts").append("<li>" +
+                            "<a href=\"/bots/use/" + index + "\">" + val.pubkey + "</a>");
                     });
                 });
             </script>

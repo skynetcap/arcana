@@ -249,6 +249,12 @@ public class ArcanaController {
         return "redirect:/";
     }
 
+    @RequestMapping("/bots/use/{id}")
+    public String useTradingAccount(Model model, @PathVariable("id") long botId) {
+        botManager.setTradingAccount(arcanaAccountManager.getArcanaAccounts().get((int) botId));
+        return "redirect:/settings";
+    }
+
 
     @PostMapping("/privateKeyUpload")
     public String privateKeyUpload(@RequestParam("file") MultipartFile file,
